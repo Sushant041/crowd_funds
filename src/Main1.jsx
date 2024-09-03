@@ -11,7 +11,6 @@ import {
   AnchorProvider,
   BN,
   Program,
-  setProvider,
 } from "@coral-xyz/anchor";
 import { Buffer } from "buffer";
 
@@ -42,8 +41,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       }, {
         commitment: "confirmed",
       });
-
-      // setProvider(provider);
 
       const program = new Program(idl, provider);
 

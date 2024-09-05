@@ -4,37 +4,41 @@ import UserProfile from "./UserProfile"; // Ensure the correct path to UserProfi
 import Main1 from "./Main1"; // Import Main1 component
 
 const WalletComponent = () => {
-  const { connectWallet, walletAddress, walletIcon, userInfo, content, signTransaction } =
+  const { connectWallet, walletAddress, walletIcon, userInfo, content, signTransaction ,} =
     useCanvasWallet();
-
+   
+   
   return (
     <div>
-      <button onClick={connectWallet}>Connect Solana Wallet</button>
+      {
+        !walletAddress && (<>
+          <p> 
 
-      {walletAddress && (
-        <div>
-          <p>Wallet Address: {walletAddress}</p>
-          <img src={walletIcon || ""} alt="Wallet Icon" />
-        </div>
-      )}
+    <dotlottie-player src="https://lottie.host/50ced29f-5404-4fc8-8a8b-68bf2a714a14/JJ0z0rck4b.json" background="transparent" speed="1" style={{height:"300px"}} loop autoplay></dotlottie-player></p>
+          <button onClick={connectWallet} style={{backgroundColor:"#6366F1"}}>Connect Solana Wallet</button>
+          </> )
+      }
+    
+
+      
 
       {userInfo && (
         <div>
-          <p>Username: {userInfo.username}</p>
-          {userInfo.avatar && <img src={userInfo.avatar} alt="User Avatar" />}
-          {userInfo.username && <UserProfile username={userInfo.username} />}
+          {userInfo.username && <UserProfile username={userInfo.username} walletAddress={walletAddress||"N/A"}  avatar={userInfo.avatar}/>}
         </div>
       )}
 
-      {content && (
+
+
+      {/* {content && (
         <div>
           <p>Portal Name: {content.portalName}</p>
         </div>
-      )}
+      )} */}
 
       {/* Pass the walletAddress and signTransaction to Main1 */}
       {walletAddress && signTransaction && (
-        <Main1 walletAddress={walletAddress} signTransaction={signTransaction} />
+        <Main1 walletAddress={walletAddress} signTransaction={signTransaction } />
       )}
     </div>
   );

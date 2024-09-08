@@ -11,6 +11,7 @@ import {
   BN,
   Program,
 } from "@coral-xyz/anchor";
+import{ toast } from "react-toastify";
 import { Buffer } from "buffer";
 import Modal from 'react-modal'; // Make sure to install react-modal using 'npm install react-modal'
 
@@ -114,7 +115,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
   const donate = async () => {
     try {
-      if (!selectedCampaign || donationAmount < 0.002) {
+      if (!selectedCampaign || donationAmount < 0.02) {
         console.error("Invalid donation amount.");
         return;
       }
@@ -147,7 +148,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
   const withdraw = async () => {
     try {
-      if (!selectedCampaign || withdrawAmount < 0.002) {
+      if (!selectedCampaign || withdrawAmount < 0.02) {
         console.error("Invalid withdraw amount.");
         return;
       }
@@ -253,6 +254,9 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               {campaign.admin.toString() === walletAddress && (
                 <button
                   onClick={() => {
+                    if((campaign.amountDonated / 1e9).toFixed(2) === 0.00){
+                      toast.error("Cannot withdraw from campaign with 0 balance.");
+                    }
                     setWithdrawModalOpen(true);
                     setSelectedCampaign(campaign.pubkey);
                   }}
@@ -412,12 +416,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>          <h2>Donate to Campaign</h2>
           <form className="bg-gray-900 dark flec flex-col">
           <label style={{width: "100%", display: "flex", alignContent: "center"}}>
-              <span>Donation Amount (Minimum 0.002 SOL):</span>
+              <span>Donation Amount (Minimum 0.02 SOL):</span>
               <input
                 type="number"
                 value={donationAmount}
                 onChange={(e) => setDonationAmount(Number(e.target.value))}
-                min="0.002"
+                min="0.02"
               />
             </label>
             <div>
@@ -460,12 +464,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           <h2>Withdraw from Campaign</h2>
           <form className="dark bg-gray-900">
           <label style={{width: "100%", display: "flex", alignContent: "center"}}>
-              Withdrawal Amount (Minimum 0.002 SOL):
+              Withdrawal Amount (Minimum 0.02 SOL):
               <input
                 type="number"
                 value={withdrawAmount}
                 onChange={(e) => setWithdrawAmount(Number(e.target.value))}
-                min="0.002"
+                min="0.02"
               />
             </label>
             <div>

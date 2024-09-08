@@ -178,7 +178,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           </p>
         </div>
       )}
-      {campaigns
+      {campaigns && campaigns
         .filter((campaign) =>
           isOwnCampaigns
             ? campaign.admin === walletAddress

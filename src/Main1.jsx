@@ -224,7 +224,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               gap: '8px'
             }}>
               <button
-                onClick={() => setDonateModalOpen(true)}
+                onClick={() => {
+                  setDonateModalOpen(true);
+                  setSelectedCampaign(campaign.pubkey);
+                }}
                 style={{
                   padding: '8px 16px',
                   border: 'none',
@@ -240,7 +243,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               </button>
               {campaign.admin.toString() === walletAddress && (
                 <button
-                  onClick={() => setWithdrawModalOpen(true)}
+                  onClick={() => {
+                    setWithdrawModalOpen(true);
+                    setSelectedCampaign(campaign.pubkey);
+                  }}
                   style={{
                     padding: '8px 16px',
                     border: 'none',
@@ -336,10 +342,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       )}
 
       {/* Create Campaign Modal */}
-      <Modal isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
-        <div className="bg-slate-900 flex flex-col">
-          <h2>Create Campaign</h2>
+      <Modal style={{backgroundColor: "black"}} isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
+      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
+        <h2>Create Campaign</h2>
           <form className="dark bg-gray-900 flex flex-col">
+            <div>
             <label>
               Campaign Name:
               <input
@@ -348,6 +355,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
               />
             </label>
+            </div>
+            <div>
             <label>
               Campaign Description:
               <textarea
@@ -355,6 +364,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
               />
             </label>
+            </div>
             <div className="flex">
               <button type="button"
                 style={{
@@ -392,10 +402,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       </Modal>
 
       {/* Donate Modal */}
-      <Modal isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
-        <div className="bg-slate-900 flex flex-col">
-          <h2>Donate to Campaign</h2>
+      <Modal style={{backgroundColor: "black"}} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
+      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>          <h2>Donate to Campaign</h2>
           <form className="bg-gray-900 dark flec flex-col">
+            <div>
             <label>
               Donation Amount (Minimum 0.002 SOL):
               <input
@@ -405,6 +415,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
+            </div>
             <div className="flex">
               <button type="button"
                 style={{
@@ -440,10 +451,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       </Modal>
 
       {/* Withdraw Modal */}
-      <Modal isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
-        <div className="bg-slate-900 flex flex-col">
+      <Modal style={{backgroundColor: "black"}} isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
           <h2>Withdraw from Campaign</h2>
           <form className="dark bg-gray-900">
+            <div>
             <label>
               Withdrawal Amount (Minimum 0.002 SOL):
               <input
@@ -453,6 +465,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
+            </div>
             <div className="flex">
               <button type="button"
                 style={{

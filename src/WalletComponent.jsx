@@ -18,9 +18,6 @@ const WalletComponent = () => {
           <button onClick={connectWallet} style={{backgroundColor:"#6366F1"}}>Connect Solana Wallet</button>
           </> )
       }
-    
-
-      
 
       {userInfo && (
         <div>
@@ -29,14 +26,6 @@ const WalletComponent = () => {
       )}
 
 
-
-      {/* {content && (
-        <div>
-          <p>Portal Name: {content.portalName}</p>
-        </div>
-      )} */}
-
-      {/* Pass the walletAddress and signTransaction to Main1 */}
       {walletAddress && signTransaction && (
         <Main1 walletAddress={walletAddress} signTransaction={signTransaction } />
       )}

@@ -355,8 +355,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <Modal style={customStyles} isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
         <h2>Create Campaign</h2>
-          <form className="dark bg-gray-900 flex flex-col">
-            <label style={{width: "100%", display: "flex", alignItems: "center"}}>
+          <form className="dark bg-gray-900 flex flex-col" style={{width: "100%"}}>
+            <label style={{width: "100%", display: "flex", alignItems: "center", marginBottom: "10px"}}>
               <span>Campaign Name:</span>
               <input
                 type="text"
@@ -371,11 +371,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
               />
             </label>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
+            <div>
               <button type="button"
                 style={{
                   padding: '12px 24px',
                   border: 'none',
+                  width: "100%",
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: '#fff',
@@ -393,6 +394,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: 'red',
+                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
@@ -418,7 +420,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
+            <div>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -426,10 +428,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: '#fff',
+                  width: '100%',
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
-                  marginBottom: '23px',
+                  marginBottom: '10px',
                   marginTop: "10px"
                 }} onClick={donate}>Donate</button>
               <button type="button"
@@ -439,10 +442,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: 'red',
+                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
-                  marginBottom: '23px',
+                  marginBottom: '10px',
                   marginTop: "10px"
                 }} onClick={() => setDonateModalOpen(false)}>Cancel</button>
             </div>
@@ -464,7 +468,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
+            <div>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -472,10 +476,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: '#fff',
+                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
-                  marginBottom: '23px',
+                  marginBottom: '10px',
                   marginTop: "10px"
                 }} onClick={withdraw}>Withdraw</button>
               <button type="button"
@@ -485,10 +490,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: 'red',
+                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
-                  marginBottom: '23px',
+                  marginBottom: '10px',
                   marginTop: "10px"
                 }} onClick={() => setWithdrawModalOpen(false)}>Cancel</button>
 

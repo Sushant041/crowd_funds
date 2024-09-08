@@ -46,109 +46,96 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   }, [walletAddress]);
 
   const getCampaigns = async () => {
-    try {
-      if (!walletAddress) {
-        console.error("Wallet not connected.");
-        return;
-      }
-      const provider = new AnchorProvider(connection, {
-        publicKey: new PublicKey(walletAddress),
-        signTransaction,
-      }, {
-        commitment: "confirmed",
-      });
-      const program = new Program(idl, provider);
 
-      const campaignAccounts = await connection.getProgramAccounts(programId);
-      const fetchedCampaigns = await Promise.all(
-        campaignAccounts.map(async (campaign) => ({
-          ...(await program.account.campaign.fetch(campaign.pubkey)),
-          pubkey: campaign.pubkey,
-        }))
-      );
-
-      setCampaigns(fetchedCampaigns);
-    } catch (error) {
-      console.error("Error fetching campaigns:", error);
+    if (!walletAddress) {
+      console.error("Wallet not connected.");
+      return;
     }
+    const provider = new AnchorProvider(connection, {
+      publicKey: new PublicKey(walletAddress),
+      signTransaction,
+    }, {
+      commitment: "confirmed",
+    });
+    const program = new Program(idl, provider);
+
+    const campaignAccounts = await connection.getProgramAccounts(programId);
+    const fetchedCampaigns = await Promise.all(
+      campaignAccounts.map(async (campaign) => ({
+        ...(await program.account.campaign.fetch(campaign.pubkey)),
+        pubkey: campaign.pubkey,
+      }))
+    );
+
+    setCampaigns(fetchedCampaigns);
   };
 
   const createCampaign = async () => {
     setCreateModalOpen(false);
-    try {
-      if (!walletAddress || !newCampaign.name || !newCampaign.description) {
-        console.error("Invalid input.");
-        return;
-      }
+    if (!walletAddress || !newCampaign.name || !newCampaign.description) {
+      console.error("Invalid input.");
+      return;
+    }
 
-      const provider = new AnchorProvider(connection, {
-        publicKey: new PublicKey(walletAddress),
-        signTransaction,
-      }, {
-        commitment: "confirmed",
-      });
+    const provider = new AnchorProvider(connection, {
+      publicKey: new PublicKey(walletAddress),
+      signTransaction,
+    }, {
+      commitment: "confirmed",
+    });
 
-      const program = new Program(idl, provider);
+    const program = new Program(idl, provider);
 
-      const [campaign] = PublicKey.findProgramAddressSync(
-        [Buffer.from("CAMPAIGN_DEMO"), new PublicKey(walletAddress).toBuffer()],
-        program.programId
-      );
+    const [campaign] = PublicKey.findProgramAddressSync(
+      [Buffer.from("CAMPAIGN_DEMO"), new PublicKey(walletAddress).toBuffer()],
+      program.programId
+    );
 
-      const res = await program.methods
-        .create(newCampaign.name, newCampaign.description)
-        .accounts({
-          campaign,
-          user: new PublicKey(walletAddress),
-          systemProgram: SystemProgram.programId,
-        })
-        .rpc();
+    const res = await program.methods
+      .create(newCampaign.name, newCampaign.description)
+      .accounts({
+        campaign,
+        user: new PublicKey(walletAddress),
+        systemProgram: SystemProgram.programId,
+      })
+      .rpc();
 
-      if (res) {
-        console.log("Created a new campaign w/ address:", campaign.toString());
-        toast("Created a new campaign");
-        getCampaigns();
-      }
-    } catch (error) {
-      console.error("Error creating campaign:", error);
-      toast("Error creating campaign:" + error);
+    if (res) {
+      console.log("Created a new campaign w/ address:", campaign.toString());
+      toast("Created a new campaign");
+      getCampaigns();
     }
   };
 
   const donate = async () => {
     setDonateModalOpen(false);
-    try {
-      if (!selectedCampaign || donationAmount < 0.02) {
-        toast.error("Donation amount should be greater than 0.02 SOL.");
-        console.error("Invalid donation amount.");
-        return;
-      }
+    if (!selectedCampaign || donationAmount < 0.02) {
+      toast.error("Donation amount should be greater than 0.02 SOL.");
+      console.error("Invalid donation amount.");
+      return;
+    }
 
-      const provider = new AnchorProvider(connection, {
-        publicKey: new PublicKey(walletAddress),
-        signTransaction,
-      }, {
-        commitment: "confirmed",
-      });
-      const program = new Program(idl, provider);
+    const provider = new AnchorProvider(connection, {
+      publicKey: new PublicKey(walletAddress),
+      signTransaction,
+    }, {
+      commitment: "confirmed",
+    });
+    const program = new Program(idl, provider);
 
-      const res = await program.methods
-        .donate(new BN(donationAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
-        .accounts({
-          campaign: selectedCampaign,
-          user: new PublicKey(walletAddress),
-          systemProgram: SystemProgram.programId,
-        })
-        .rpc();
-      
-        if(res){
-          console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
-          toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());
-          getCampaigns();
-        }
-    } catch (error) {
-      console.error("Error donating:", error);
-      toast("Error donating:" + error);
+    const res = await program.methods
+      .donate(new BN(donationAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
+      .accounts({
+        campaign: selectedCampaign,
+        user: new PublicKey(walletAddress),
+        systemProgram: SystemProgram.programId,
+      })
+      .rpc();
+
+    if (res) {
+      console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
+      toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());
+      getCampaigns();
     }
   };
 
@@ -175,12 +162,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           user: new PublicKey(walletAddress),
         })
         .rpc();
-      
-        if(res){
-          console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-          toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-          getCampaigns();
-        }
+
+      if (res) {
+        console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
+        toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
+        getCampaigns();
+      }
     } catch (error) {
       console.error("Error withdrawing:", error);
       toast("Error withdrawing:" + error);

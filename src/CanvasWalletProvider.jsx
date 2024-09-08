@@ -98,6 +98,7 @@ export const CanvasWalletProvider = ({ children }) => {
             });
 
             if (results?.untrusted?.success) {
+                toast.success("transaction signed");
                 console.log('Transaction signed:', results.untrusted.signedTx);
                 return results.untrusted.signedTx;
             } else {

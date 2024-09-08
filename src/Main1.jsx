@@ -29,6 +29,13 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
+  const customStyles = {
+    content: {
+      margin: "auto",
+      backgroundColor : "black",      
+    },
+  };
+
   useEffect(() => {
     if (walletAddress) {
       getCampaigns();
@@ -280,7 +287,9 @@ const Main1 = ({ walletAddress, signTransaction }) => {
             gap: '16px'
           }}>
             <button
-              onClick={() => setActiveTab("myCampaigns")}
+              onClick={() => {
+                console.log(campaigns)
+                setActiveTab("myCampaigns")}}
               style={{
                 padding: '12px 24px',
                 border: '2px solid',
@@ -342,7 +351,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       )}
 
       {/* Create Campaign Modal */}
-      <Modal style={{backgroundColor: "black"}} isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
+      <Modal style={customStyles} isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
         <h2>Create Campaign</h2>
           <form className="dark bg-gray-900 flex flex-col">
@@ -402,7 +411,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       </Modal>
 
       {/* Donate Modal */}
-      <Modal style={{backgroundColor: "black"}} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
+      <Modal style={customStyles} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>          <h2>Donate to Campaign</h2>
           <form className="bg-gray-900 dark flec flex-col">
             <div>
@@ -451,7 +460,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       </Modal>
 
       {/* Withdraw Modal */}
-      <Modal style={{backgroundColor: "black"}} isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
+      <Modal style={customStyles} isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
           <h2>Withdraw from Campaign</h2>
           <form className="dark bg-gray-900">

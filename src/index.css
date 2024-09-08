@@ -38,11 +38,15 @@ h1 {
 input{
   padding: 7px;
   border-radius: 10px;
+  width: 50%;
+  margin-left: 12px;
 }
 
 textarea{
   border-radius: 10px;
   padding: 8px;
+  width: 50%;
+  margin-left: 12px;
 }
 
 button {

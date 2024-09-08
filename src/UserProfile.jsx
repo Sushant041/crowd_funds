@@ -52,7 +52,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
   return userData ? (
     <div style={styles.card}>
       <div style={styles.imageContainer}>
-      {userInfo.avatar ? (<img
+      {userData.avatar ? (<img
           src={avatar}
           alt={`${username}'s avatar`}
           style={styles.image}
@@ -72,7 +72,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
           fontSize: '24px', // 2xl text
         }}
       >
-        {getInitials(userInfo.username)}
+        {getInitials(userData.username)}
       </div> 
       }
       </div>

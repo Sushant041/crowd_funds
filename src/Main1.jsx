@@ -270,30 +270,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
   return (
     <div>
-      <header className="bg-gray-800 py-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">Crowdfunding Campaigns</h1>
-          {walletAddress ? (
-            <div>
-              <button
-                className={`mx-2 px-4 py-2 rounded ${activeTab === "myCampaigns" ? "bg-indigo-500 text-white" : "bg-gray-500 text-white"}`}
-                onClick={() => setActiveTab("myCampaigns")}
-              >
-                My Campaigns
-              </button>
-              <button
-                className={`mx-2 px-4 py-2 rounded ${activeTab === "otherCampaigns" ? "bg-indigo-500 text-white" : "bg-gray-500 text-white"}`}
-                onClick={() => setActiveTab("otherCampaigns")}
-              >
-                Other Campaigns
-              </button>
-            </div>
-          ) : (
-            <p className="text-white">Please connect your wallet to view campaigns.</p>
-          )}
-        </div>
-      </header>
-
       <div className="container mx-auto p-8">
         {walletAddress ? (
           <div>

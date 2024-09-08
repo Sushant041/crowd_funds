@@ -82,7 +82,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
           <strong style={styles.followers}>{userData.followerCount}</strong> Followers &nbsp;&nbsp;
           <strong style={styles.following}>{userData.followingCount}</strong> Following
         </p>
-        <p style={styles.detailItem & {display: "flex"}}>
+        <p style={styles.detailItem}>
           <img src={dscvr_logo} alt="DSCVR Points Icon" style={styles.icon} />
           {userData.dscvrPoints}
         </p>
@@ -141,6 +141,7 @@ const styles = {
   detailItem: {
     fontSize: '14px',
     marginBottom: '4px',
+    display: "flex"
   },
   followers: {
     color: '#00bcd4',

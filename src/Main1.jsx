@@ -31,14 +31,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
   const customStyles = {
     content: {
-      margin: "auto",
       backgroundColor : "black",      
     },
     overlay: {
       backgroundColor: 'rgba(0, 0, 0)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
     },
   };
 
@@ -294,7 +290,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           }}>
             <button
               onClick={() => {
-                console.log(campaigns)
                 setActiveTab("myCampaigns")}}
               style={{
                 padding: '12px 24px',
@@ -361,25 +356,21 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
         <h2>Create Campaign</h2>
           <form className="dark bg-gray-900 flex flex-col">
-            <div style={{display: "flex", alignItems: "center"}}>
-            <label style={{width: "100%"}}>
-              Campaign Name:
+            <label style={{width: "100%", display: "flex", alignItems: "center"}}>
+              <span>Campaign Name:</span>
               <input
                 type="text"
                 value={newCampaign.name}
                 onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
               />
             </label>
-            </div>
-            <div style={{display: "flex", alignContent: "center"}}>
-            <label style={{width: "100%"}}>
-              Campaign Description:
+            <label style={{width: "100%", display: "flex", alignContent: "center"}}>
+              <span>Campaign Description:</span>
               <textarea
                 value={newCampaign.description}
                 onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
               />
             </label>
-            </div>
             <div className="flex">
               <button type="button"
                 style={{
@@ -420,9 +411,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <Modal style={customStyles} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>          <h2>Donate to Campaign</h2>
           <form className="bg-gray-900 dark flec flex-col">
-          <div style={{display: "flex", alignContent: "center"}}>
-          <label style={{width: "100%"}}>
-              Donation Amount (Minimum 0.002 SOL):
+          <label style={{width: "100%", display: "flex", alignContent: "center"}}>
+              <span>Donation Amount (Minimum 0.002 SOL):</span>
               <input
                 type="number"
                 value={donationAmount}
@@ -430,7 +420,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
-            </div>
             <div className="flex">
               <button type="button"
                 style={{
@@ -470,8 +459,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
           <h2>Withdraw from Campaign</h2>
           <form className="dark bg-gray-900">
-          <div style={{display: "flex", alignContent: "center"}}>
-          <label style={{width: "100%"}}>
+          <label style={{width: "100%", display: "flex", alignContent: "center"}}>
               Withdrawal Amount (Minimum 0.002 SOL):
               <input
                 type="number"
@@ -480,7 +468,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
-            </div>
             <div className="flex">
               <button type="button"
                 style={{

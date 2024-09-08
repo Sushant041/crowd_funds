@@ -12,10 +12,8 @@ const WalletComponent = () => {
     <div>
       {
         !walletAddress && (<>
-          <p> 
-
-    <dotlottie-player src="https://lottie.host/50ced29f-5404-4fc8-8a8b-68bf2a714a14/JJ0z0rck4b.json" background="transparent" speed="1" style={{height:"100px"}} loop autoplay></dotlottie-player></p>
-          <button onClick={connectWallet} style={{backgroundColor:"#6366F1"}}>Connect Solana Wallet</button>
+      <dotlottie-player src="https://lottie.host/50ced29f-5404-4fc8-8a8b-68bf2a714a14/JJ0z0rck4b.json" background="transparent" speed="1" style={{height:"150px", with: "150px"}} loop autoplay></dotlottie-player>
+          <button onClick={connectWallet} style={{backgroundColor:"#6366F1", marginTop: "-10px"}}>Connect Solana Wallet</button>
           </> )
       }
 

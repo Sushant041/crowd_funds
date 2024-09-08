@@ -83,7 +83,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
         </p>
         <p style={styles.detailItem}>
           <img src={dscvr_logo} alt="DSCVR Points Icon" style={styles.icon} />
-          {userData.dscvrPoints}
+          {userData.dscvrPoints/1e6}
         </p>
         <p style={styles.walletAddress}>
           Wallet Address: <span style={styles.shortenedWallet} title={walletAddress}>{shortenWalletAddress(walletAddress)}</span>

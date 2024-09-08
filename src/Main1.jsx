@@ -137,43 +137,41 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());
       getCampaigns();
     }
-    else{
+    else {
       console.log(res);
     }
   };
 
   const withdraw = async () => {
     setWithdrawModalOpen(false);
-    try {
-      if (!selectedCampaign || withdrawAmount < 0.02) {
-        console.error("Invalid withdraw amount.");
-        return;
-      }
+    if (!selectedCampaign || withdrawAmount < 0.02) {
+      console.error("Invalid withdraw amount.");
+      return;
+    }
 
-      const provider = new AnchorProvider(connection, {
-        publicKey: new PublicKey(walletAddress),
-        signTransaction,
-      }, {
-        commitment: "confirmed",
-      });
-      const program = new Program(idl, provider);
+    const provider = new AnchorProvider(connection, {
+      publicKey: new PublicKey(walletAddress),
+      signTransaction,
+    }, {
+      commitment: "confirmed",
+    });
+    const program = new Program(idl, provider);
 
-      const res = await program.methods
-        .withdraw(new BN(withdrawAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
-        .accounts({
-          campaign: selectedCampaign,
-          user: new PublicKey(walletAddress),
-        })
-        .rpc();
+    const res = await program.methods
+      .withdraw(new BN(withdrawAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
+      .accounts({
+        campaign: selectedCampaign,
+        user: new PublicKey(walletAddress),
+      })
+      .rpc();
 
-      if (res) {
-        console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-        toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-        getCampaigns();
-      }
-    } catch (error) {
-      console.error("Error withdrawing:", error);
-      toast("Error withdrawing:" + error);
+    if (res) {
+      console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
+      toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
+      getCampaigns();
+    }
+    else{
+      console.log(res);
     }
   };
 

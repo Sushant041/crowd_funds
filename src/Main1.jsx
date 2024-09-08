@@ -104,12 +104,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         .rpc();
 
       console.log("Created a new campaign w/ address:", campaign.toString());
-      alert("Created a new campaign w/ address:" + campaign.toString());
+      toast("Created a new campaign");
+      setCreateModalOpen(false);
       getCampaigns();
-      setCreateModalOpen(false); // Close the modal after creation
     } catch (error) {
       console.error("Error creating campaign:", error);
-      alert("Error creating campaign:" + error);
+      toast("Error creating campaign:" + error);
     }
   };
 
@@ -139,11 +139,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         .rpc();
 
       console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
-      getCampaigns();
       setDonateModalOpen(false);
+      getCampaigns();
     } catch (error) {
       console.error("Error donating:", error);
-      alert("Error donating:" + error);
+      toast("Error donating:" + error);
     }
   };
 
@@ -171,11 +171,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         .rpc();
 
       console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-      getCampaigns();
       setWithdrawModalOpen(false);
+      getCampaigns();
     } catch (error) {
       console.error("Error withdrawing:", error);
-      alert("Error withdrawing:" + error);
+      toast("Error withdrawing:" + error);
     }
   };
 
@@ -255,7 +255,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               {campaign.admin.toString() === walletAddress && (
                 <button
                   onClick={() => {
-                    if((campaign.amountDonated / 1e9).toFixed(2) <= withdrawAmount){
+                    if((campaign.amountDonated / 1e9).toFixed(2) < withdrawAmount){
                       toast.error("Cannot withdraw from campaign.");
                       return;
                     }

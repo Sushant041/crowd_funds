@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GraphQLClient, gql } from 'graphql-request';
+import dscvr_logo from "/dscvr_logo.svg"
 
 // Initialize the GraphQL client with the DSCVR endpoint
 const client = new GraphQLClient('https://api.dscvr.one/graphql');
@@ -37,9 +38,8 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
     fetchUserData(username);
   }, [username]);
 
-  const getPlaceholderAvatar = (name) => {
-    const initials = name.substring(0, 2).toUpperCase();
-    return `https://via.placeholder.com/80?text=${initials}`;
+  const getInitials = (name) => {
+    return name ? name.slice(0, 2).toUpperCase() : '';
   };
 
   const shortenWalletAddress = (address) => {
@@ -52,11 +52,29 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
   return userData ? (
     <div style={styles.card}>
       <div style={styles.imageContainer}>
-        <img
-          src={avatar || getPlaceholderAvatar(username)}
+      {userInfo.avatar ? (<img
+          src={avatar}
           alt={`${username}'s avatar`}
           style={styles.image}
-        />
+        />)
+        :  
+        <div
+        style={{
+          height: '60%',
+          width: '60%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#111827', // gray-900 color
+          color: '#FFFFFF', // white
+          borderRadius: '50%',
+          border: '2px solid #22D3EE', // cyan-300 color
+          fontSize: '24px', // 2xl text
+        }}
+      >
+        {getInitials(userInfo.username)}
+      </div> 
+      }
       </div>
       <div style={styles.details}>
         <p style={styles.username}>{username}</p>
@@ -65,7 +83,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
           <strong style={styles.following}>{userData.followingCount}</strong> Following
         </p>
         <p style={styles.detailItem}>
-          <img src="icon_url_here" alt="DSCVR Points Icon" style={styles.icon} />
+          <img src={dscvr_logo} alt="DSCVR Points Icon" style={styles.icon} />
           {userData.dscvrPoints}
         </p>
         <p style={styles.walletAddress}>

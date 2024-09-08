@@ -6,7 +6,7 @@ import Main1 from "./Main1"; // Import Main1 component
 const WalletComponent = () => {
   const { connectWallet, walletAddress, walletIcon, userInfo, content, signTransaction ,} =
     useCanvasWallet();
-   
+
    
   return (
     <div>
@@ -19,7 +19,7 @@ const WalletComponent = () => {
           </> )
       }
 
-      {userInfo && (
+      {userInfo && walletAddress && (
         <div>
           {userInfo.username && <UserProfile username={userInfo.username} walletAddress={walletAddress||"N/A"}  avatar={userInfo.avatar}/>}
         </div>

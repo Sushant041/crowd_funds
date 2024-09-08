@@ -257,6 +257,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   onClick={() => {
                     if((campaign.amountDonated / 1e9).toFixed(2) <= withdrawAmount){
                       toast.error("Cannot withdraw from campaign.");
+                      return;
                     }
                     setWithdrawModalOpen(true);
                     setSelectedCampaign(campaign.pubkey);

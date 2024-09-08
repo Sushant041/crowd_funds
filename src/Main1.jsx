@@ -12,7 +12,6 @@ import {
   Program,
 } from "@coral-xyz/anchor";
 import { Buffer } from "buffer";
-import { Keypair } from "@solana/web3.js";
 import Modal from 'react-modal'; // Make sure to install react-modal using 'npm install react-modal'
 
 window.Buffer = Buffer;
@@ -337,7 +336,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       )}
 
       {/* Create Campaign Modal */}
-      <Modal isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
+      <Modal className="bg-gray-900" isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
         <h2>Create Campaign</h2>
         <form className="dark bg-gray-900 flex flex-col">
           <label>
@@ -391,7 +390,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       </Modal>
 
       {/* Donate Modal */}
-      <Modal isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
+      <Modal className="bg-gray-900" isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
         <h2>Donate to Campaign</h2>
         <form className="bg-gray-900 dark flec flex-col">
           <label>
@@ -437,7 +436,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       </Modal>
 
       {/* Withdraw Modal */}
-      <Modal isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
+      <Modal className="bg-gray-900" isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
         <h2>Withdraw from Campaign</h2>
         <form className="dark bg-gray-900">
           <label>

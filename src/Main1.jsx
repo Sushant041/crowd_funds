@@ -137,6 +137,9 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());
       getCampaigns();
     }
+    else{
+      console.log(res);
+    }
   };
 
   const withdraw = async () => {

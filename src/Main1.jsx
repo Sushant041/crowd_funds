@@ -167,7 +167,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
       toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
     }
-    else{
+    else {
       console.log(res);
     }
   };
@@ -386,9 +386,9 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   marginBottom: '23px',
                   marginTop: "10px"
                 }}
-                onClick={() =>{
-                  createCampaign();
-                  getCampaigns();
+                onClick={async () => {
+                  await createCampaign();
+                  await getCampaigns();
                 }}>Create</button>
               <button type="button"
                 style={{
@@ -437,9 +437,9 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   transition: 'background-color 0.3s ease',
                   marginBottom: '10px',
                   marginTop: "10px"
-                }} onClick={() => {
-                  donate();
-                  getCampaigns();
+                }} onClick={async() => {
+                  await donate();
+                  await getCampaigns();
                 }}>Donate</button>
               <button type="button"
                 style={{
@@ -488,10 +488,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   transition: 'background-color 0.3s ease',
                   marginBottom: '10px',
                   marginTop: "10px"
-                }} onClick={()=> {
-                  withdraw();
-                  getCampaigns();
-                  }}>Withdraw</button>
+                }} onClick={async() => {
+                  await withdraw();
+                  await getCampaigns();
+                }}>Withdraw</button>
               <button type="button"
                 style={{
                   padding: '12px 24px',

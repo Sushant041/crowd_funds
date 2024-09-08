@@ -103,7 +103,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
     if (res) {
       console.log("Created a new campaign w/ address:", campaign.toString());
       toast("Created a new campaign");
-      getCampaigns();
     }
   };
 
@@ -135,7 +134,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
     if (res) {
       console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
       toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());
-      getCampaigns();
     }
     else {
       console.log(res);
@@ -168,7 +166,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
     if (res) {
       console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
       toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-      getCampaigns();
     }
     else{
       console.log(res);
@@ -509,4 +506,4 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   );
 };
 
-export default Main1;
+export {Main1, getCampaigns};

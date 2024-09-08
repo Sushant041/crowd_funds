@@ -4,6 +4,7 @@ import { registerCanvasWallet } from '@dscvr-one/canvas-wallet-adapter';
 import { Connection, PublicKey, Transaction } from '@solana/web3.js';
 import { encode } from 'bs58';
 import { toast } from 'react-toastify';
+import { getCampaigns } from './Main1';
 
 const WalletContext = createContext(null);
 
@@ -99,8 +100,9 @@ export const CanvasWalletProvider = ({ children }) => {
 
             if (results?.untrusted?.success) {
                 toast.success("transaction signed");
-                console.log('Transaction signed:', results.untrusted.signedTx);
-                return results.untrusted.signedTx;
+                getCampaigns();
+                console.log('Transaction signed:', results);
+                return results;
             } else {
                 toast.error('Failed to sign transaction');
                 console.error('Failed to sign transaction');
@@ -109,7 +111,6 @@ export const CanvasWalletProvider = ({ children }) => {
             toast.error('Failed to sign transaction');
             console.error('Error signing transaction:', error);
         }
-
         return null;
     };
 

@@ -52,7 +52,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
   return userData ? (
     <div style={styles.card}>
       <div style={styles.imageContainer}>
-      {userData.avatar ? (<img
+      {avatar ? (<img
           src={avatar}
           alt={`${username}'s avatar`}
           style={styles.image}
@@ -72,7 +72,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
           fontSize: '24px', // 2xl text
         }}
       >
-        {getInitials(userData.username)}
+        {getInitials(username)}
       </div> 
       }
       </div>
@@ -82,7 +82,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
           <strong style={styles.followers}>{userData.followerCount}</strong> Followers &nbsp;&nbsp;
           <strong style={styles.following}>{userData.followingCount}</strong> Following
         </p>
-        <p style={styles.detailItem}>
+        <p style={styles.detailItem & {display: "flex"}}>
           <img src={dscvr_logo} alt="DSCVR Points Icon" style={styles.icon} />
           {userData.dscvrPoints}
         </p>
@@ -149,8 +149,7 @@ const styles = {
     color: '#00bcd4',
   },
   icon: {
-    width: '20px',
-    marginRight: '4px',
+    width: '30px',
   },
   walletAddress: {
     fontSize: '14px',

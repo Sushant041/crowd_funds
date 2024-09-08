@@ -260,8 +260,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         ))}
     </div>
   );
-  
-  
+
+
 
   return (
     <div style={{ padding: '16px' }}>
@@ -278,7 +278,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               style={{
                 padding: '12px 24px',
                 border: '2px solid',
-                width:"54%",
+                width: "54%",
                 borderColor: activeTab === "myCampaigns" ? '#00BCD4' : '#1C212E',
                 backgroundColor: activeTab === "myCampaigns" ? '#1C212E' : '#2F3C57',
                 color: activeTab === "myCampaigns" ? '#00BCD4' : '#fff',
@@ -294,7 +294,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               style={{
                 padding: '12px 24px',
                 border: '2px solid',
-                width:"54%",
+                width: "54%",
                 borderColor: activeTab === "otherCampaigns" ? '#00BCD4' : '#1C212E',
                 backgroundColor: activeTab === "otherCampaigns" ? '#1C212E' : '#2F3C57',
                 color: activeTab === "otherCampaigns" ? '#00BCD4' : '#fff',
@@ -316,12 +316,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: '#fff',
-                  width:"100%",
+                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
                   marginBottom: '23px',
-                  marginTop:"10px"
+                  marginTop: "10px"
                 }}
               >
                 Create Campaign +
@@ -336,150 +336,156 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       )}
 
       {/* Create Campaign Modal */}
-      <Modal className="bg-gray-900" isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
-        <h2>Create Campaign</h2>
-        <form className="dark bg-gray-900 flex flex-col">
-          <label>
-            Campaign Name:
-            <input
-              type="text"
-              value={newCampaign.name}
-              onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
-            />
-          </label>
-          <label>
-            Campaign Description:
-            <textarea
-              value={newCampaign.description}
-              onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
-            />
-          </label>
-          <div className="flex">
-          <button type="button"
-          style={{
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '4px',
-            backgroundColor: '#6366F1',
-            color: '#fff',
-            width:"100%",
-            cursor: 'pointer',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            transition: 'background-color 0.3s ease',
-            marginBottom: '23px',
-            marginTop:"10px"
-          }}
-           onClick={createCampaign}>Create</button>
-          <button type="button"
-          style={{
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '4px',
-            backgroundColor: '#6366F1',
-            color: 'red',
-            width:"100%",
-            cursor: 'pointer',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            transition: 'background-color 0.3s ease',
-            marginBottom: '23px',
-            marginTop:"10px"
-          }}
-           onClick={() => setCreateModalOpen(false)}>Cancel</button>
-           </div>
-        </form>
+      <Modal isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
+        <div className="bg-slate-900 flex flex-col">
+          <h2>Create Campaign</h2>
+          <form className="dark bg-gray-900 flex flex-col">
+            <label>
+              Campaign Name:
+              <input
+                type="text"
+                value={newCampaign.name}
+                onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
+              />
+            </label>
+            <label>
+              Campaign Description:
+              <textarea
+                value={newCampaign.description}
+                onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
+              />
+            </label>
+            <div className="flex">
+              <button type="button"
+                style={{
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#6366F1',
+                  color: '#fff',
+                  width: "100%",
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  transition: 'background-color 0.3s ease',
+                  marginBottom: '23px',
+                  marginTop: "10px"
+                }}
+                onClick={createCampaign}>Create</button>
+              <button type="button"
+                style={{
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#6366F1',
+                  color: 'red',
+                  width: "100%",
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  transition: 'background-color 0.3s ease',
+                  marginBottom: '23px',
+                  marginTop: "10px"
+                }}
+                onClick={() => setCreateModalOpen(false)}>Cancel</button>
+            </div>
+          </form>
+        </div>
       </Modal>
 
       {/* Donate Modal */}
-      <Modal className="bg-gray-900" isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
-        <h2>Donate to Campaign</h2>
-        <form className="bg-gray-900 dark flec flex-col">
-          <label>
-            Donation Amount (Minimum 0.002 SOL):
-            <input
-              type="number"
-              value={donationAmount}
-              onChange={(e) => setDonationAmount(Number(e.target.value))}
-              min="0.002"
-            />
-          </label>
-          <div className="flex">
-          <button type="button"
-          style={{
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '4px',
-            backgroundColor: '#6366F1',
-            color: '#fff',
-            width:"100%",
-            cursor: 'pointer',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            transition: 'background-color 0.3s ease',
-            marginBottom: '23px',
-            marginTop:"10px"
-          }} onClick={donate}>Donate</button>
-          <button type="button"
-          style={{
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '4px',
-            backgroundColor: '#6366F1',
-            color: 'red',
-            width:"100%",
-            cursor: 'pointer',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            transition: 'background-color 0.3s ease',
-            marginBottom: '23px',
-            marginTop:"10px"
-          }} onClick={() => setDonateModalOpen(false)}>Cancel</button>
-          </div>
-        </form>
+      <Modal isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
+        <div className="bg-slate-900 flex flex-col">
+          <h2>Donate to Campaign</h2>
+          <form className="bg-gray-900 dark flec flex-col">
+            <label>
+              Donation Amount (Minimum 0.002 SOL):
+              <input
+                type="number"
+                value={donationAmount}
+                onChange={(e) => setDonationAmount(Number(e.target.value))}
+                min="0.002"
+              />
+            </label>
+            <div className="flex">
+              <button type="button"
+                style={{
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#6366F1',
+                  color: '#fff',
+                  width: "100%",
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  transition: 'background-color 0.3s ease',
+                  marginBottom: '23px',
+                  marginTop: "10px"
+                }} onClick={donate}>Donate</button>
+              <button type="button"
+                style={{
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#6366F1',
+                  color: 'red',
+                  width: "100%",
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  transition: 'background-color 0.3s ease',
+                  marginBottom: '23px',
+                  marginTop: "10px"
+                }} onClick={() => setDonateModalOpen(false)}>Cancel</button>
+            </div>
+          </form>
+        </div>
       </Modal>
 
       {/* Withdraw Modal */}
-      <Modal className="bg-gray-900" isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
-        <h2>Withdraw from Campaign</h2>
-        <form className="dark bg-gray-900">
-          <label>
-            Withdrawal Amount (Minimum 0.002 SOL):
-            <input
-              type="number"
-              value={withdrawAmount}
-              onChange={(e) => setWithdrawAmount(Number(e.target.value))}
-              min="0.002"
-            />
-          </label>
-          <div className="flex">
-          <button type="button"
-          style={{
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '4px',
-            backgroundColor: '#6366F1',
-            color: '#fff',
-            width:"100%",
-            cursor: 'pointer',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            transition: 'background-color 0.3s ease',
-            marginBottom: '23px',
-            marginTop:"10px"
-          }} onClick={withdraw}>Withdraw</button>
-          <button type="button"
-          style={{
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '4px',
-            backgroundColor: '#6366F1',
-            color: 'red',
-            width:"100%",
-            cursor: 'pointer',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            transition: 'background-color 0.3s ease',
-            marginBottom: '23px',
-            marginTop:"10px"
-          }} onClick={() => setWithdrawModalOpen(false)}>Cancel</button>
+      <Modal isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
+        <div className="bg-slate-900 flex flex-col">
+          <h2>Withdraw from Campaign</h2>
+          <form className="dark bg-gray-900">
+            <label>
+              Withdrawal Amount (Minimum 0.002 SOL):
+              <input
+                type="number"
+                value={withdrawAmount}
+                onChange={(e) => setWithdrawAmount(Number(e.target.value))}
+                min="0.002"
+              />
+            </label>
+            <div className="flex">
+              <button type="button"
+                style={{
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#6366F1',
+                  color: '#fff',
+                  width: "100%",
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  transition: 'background-color 0.3s ease',
+                  marginBottom: '23px',
+                  marginTop: "10px"
+                }} onClick={withdraw}>Withdraw</button>
+              <button type="button"
+                style={{
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                  backgroundColor: '#6366F1',
+                  color: 'red',
+                  width: "100%",
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  transition: 'background-color 0.3s ease',
+                  marginBottom: '23px',
+                  marginTop: "10px"
+                }} onClick={() => setWithdrawModalOpen(false)}>Cancel</button>
 
-          </div>
-        </form>
+            </div>
+          </form>
+        </div>
       </Modal>
     </div>
   );

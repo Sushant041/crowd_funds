@@ -364,14 +364,14 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
               />
             </label>
-            <label style={{width: "100%", display: "flex", alignContent: "center"}}>
+            <label style={{width: "100%", display: "flex", alignItems: "center"}}>
               <span>Campaign Description:</span>
               <textarea
                 value={newCampaign.description}
                 onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
               />
             </label>
-            <div className="flex">
+            <div style={{display: "flex", justifyContent: "space-between"}}>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -379,7 +379,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: '#fff',
-                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
@@ -394,7 +393,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: 'red',
-                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
@@ -420,7 +418,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
-            <div className="flex">
+            <div style={{display: "flex", justifyContent: "space-between"}}>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -428,7 +426,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: '#fff',
-                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
@@ -442,7 +439,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: 'red',
-                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
@@ -468,7 +464,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 min="0.002"
               />
             </label>
-            <div className="flex">
+            <div style={{display: "flex", justifyContent: "space-between"}}>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -476,7 +472,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: '#fff',
-                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',
@@ -490,7 +485,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   borderRadius: '4px',
                   backgroundColor: '#6366F1',
                   color: 'red',
-                  width: "100%",
                   cursor: 'pointer',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s ease',

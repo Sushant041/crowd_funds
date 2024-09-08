@@ -35,7 +35,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       backgroundColor : "black",      
     },
     overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      backgroundColor: 'rgba(0, 0, 0)',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -358,11 +358,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
       {/* Create Campaign Modal */}
       <Modal style={customStyles} isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
-      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
+      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
         <h2>Create Campaign</h2>
           <form className="dark bg-gray-900 flex flex-col">
-            <div style={{display: "flex", alignContent: "center"}}>
-            <label>
+            <div style={{display: "flex", alignItems: "center"}}>
+            <label style={{width: "100%"}}>
               Campaign Name:
               <input
                 type="text"
@@ -372,7 +372,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
             </label>
             </div>
             <div style={{display: "flex", alignContent: "center"}}>
-            <label>
+            <label style={{width: "100%"}}>
               Campaign Description:
               <textarea
                 value={newCampaign.description}
@@ -421,7 +421,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>          <h2>Donate to Campaign</h2>
           <form className="bg-gray-900 dark flec flex-col">
           <div style={{display: "flex", alignContent: "center"}}>
-            <label>
+          <label style={{width: "100%"}}>
               Donation Amount (Minimum 0.002 SOL):
               <input
                 type="number"
@@ -471,7 +471,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           <h2>Withdraw from Campaign</h2>
           <form className="dark bg-gray-900">
           <div style={{display: "flex", alignContent: "center"}}>
-            <label>
+          <label style={{width: "100%"}}>
               Withdrawal Amount (Minimum 0.002 SOL):
               <input
                 type="number"

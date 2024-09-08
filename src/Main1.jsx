@@ -106,7 +106,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       console.log("Created a new campaign w/ address:", campaign.toString());
       toast("Created a new campaign");
       setCreateModalOpen(false);
-      getCampaigns();
+      await getCampaigns();
     } catch (error) {
       console.error("Error creating campaign:", error);
       toast("Error creating campaign:" + error);
@@ -140,7 +140,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
       console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
       setDonateModalOpen(false);
-      getCampaigns();
+      await getCampaigns();
     } catch (error) {
       console.error("Error donating:", error);
       toast("Error donating:" + error);
@@ -172,7 +172,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
       console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
       setWithdrawModalOpen(false);
-      getCampaigns();
+      await getCampaigns();
     } catch (error) {
       console.error("Error withdrawing:", error);
       toast("Error withdrawing:" + error);

@@ -42,6 +42,24 @@ input{
   margin-left: 12px;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1a1a1a; /* gray-900 equivalent */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(99, 102, 241); /* indigo-400 equivalent */
+  border-radius: 10px; /* Optional: Rounds the corners of the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #4f46e5; /* Darker shade of indigo-400 on hover */
+}
+
 textarea{
   border-radius: 10px;
   padding: 8px;

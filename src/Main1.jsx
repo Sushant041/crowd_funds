@@ -187,8 +187,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       {campaigns && campaigns
         .filter((campaign) =>
           isOwnCampaigns
-            ? campaign.admin === walletAddress
-            : campaign.admin !== walletAddress
+            ?  campaign.admin.toString() === walletAddress 
+            : campaign.admin.toString() !== walletAddress
         )
         .map((campaign) => (
           <div key={campaign.pubkey.toString()} style={{

@@ -5,7 +5,7 @@ import './App.css';
 import { CanvasWalletProvider } from './CanvasWalletProvider';
 import WalletComponent from './WalletComponent';
 import Main1 from './Main1';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {

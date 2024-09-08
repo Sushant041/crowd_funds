@@ -24,8 +24,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   const [isDonateModalOpen, setDonateModalOpen] = useState(false);
   const [isWithdrawModalOpen, setWithdrawModalOpen] = useState(false);
   const [newCampaign, setNewCampaign] = useState({ name: "", description: "" });
-  const [donationAmount, setDonationAmount] = useState(0.002);
-  const [withdrawAmount, setWithdrawAmount] = useState(0.002);
+  const [donationAmount, setDonationAmount] = useState(0.02);
+  const [withdrawAmount, setWithdrawAmount] = useState(0.02);
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
@@ -116,6 +116,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   const donate = async () => {
     try {
       if (!selectedCampaign || donationAmount < 0.02) {
+        toast.error("Donation amount should be greater than 0.02 SOL.");
         console.error("Invalid donation amount.");
         return;
       }
@@ -254,8 +255,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               {campaign.admin.toString() === walletAddress && (
                 <button
                   onClick={() => {
-                    if((campaign.amountDonated / 1e9).toFixed(2) === 0.00){
-                      toast.error("Cannot withdraw from campaign with 0 balance.");
+                    if((campaign.amountDonated / 1e9).toFixed(2) <= withdrawAmount){
+                      toast.error("Cannot withdraw from campaign.");
                     }
                     setWithdrawModalOpen(true);
                     setSelectedCampaign(campaign.pubkey);

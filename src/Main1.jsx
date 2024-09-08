@@ -34,6 +34,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       margin: "auto",
       backgroundColor : "black",      
     },
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   };
 
   useEffect(() => {
@@ -355,7 +361,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
         <h2>Create Campaign</h2>
           <form className="dark bg-gray-900 flex flex-col">
-            <div>
+            <div style={{display: "flex", alignContent: "center"}}>
             <label>
               Campaign Name:
               <input
@@ -365,7 +371,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               />
             </label>
             </div>
-            <div>
+            <div style={{display: "flex", alignContent: "center"}}>
             <label>
               Campaign Description:
               <textarea
@@ -414,7 +420,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <Modal style={customStyles} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
       <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>          <h2>Donate to Campaign</h2>
           <form className="bg-gray-900 dark flec flex-col">
-            <div>
+          <div style={{display: "flex", alignContent: "center"}}>
             <label>
               Donation Amount (Minimum 0.002 SOL):
               <input
@@ -464,7 +470,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
           <h2>Withdraw from Campaign</h2>
           <form className="dark bg-gray-900">
-            <div>
+          <div style={{display: "flex", alignContent: "center"}}>
             <label>
               Withdrawal Amount (Minimum 0.002 SOL):
               <input

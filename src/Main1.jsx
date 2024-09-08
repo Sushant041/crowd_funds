@@ -11,7 +11,7 @@ import {
   BN,
   Program,
 } from "@coral-xyz/anchor";
-import{ toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Buffer } from "buffer";
 import Modal from 'react-modal'; // Make sure to install react-modal using 'npm install react-modal'
 
@@ -32,7 +32,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
   const customStyles = {
     content: {
-      backgroundColor : "black",      
+      backgroundColor: "black",
     },
     overlay: {
       backgroundColor: 'rgba(0, 0, 0)',
@@ -74,6 +74,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   };
 
   const createCampaign = async () => {
+    setCreateModalOpen(false);
     try {
       if (!walletAddress || !newCampaign.name || !newCampaign.description) {
         console.error("Invalid input.");
@@ -94,7 +95,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         program.programId
       );
 
-      await program.methods
+      const res = await program.methods
         .create(newCampaign.name, newCampaign.description)
         .accounts({
           campaign,
@@ -103,10 +104,11 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         })
         .rpc();
 
-      console.log("Created a new campaign w/ address:", campaign.toString());
-      toast("Created a new campaign");
-      setCreateModalOpen(false);
-      await getCampaigns();
+      if (res) {
+        console.log("Created a new campaign w/ address:", campaign.toString());
+        toast("Created a new campaign");
+        getCampaigns();
+      }
     } catch (error) {
       console.error("Error creating campaign:", error);
       toast("Error creating campaign:" + error);
@@ -114,6 +116,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   };
 
   const donate = async () => {
+    setDonateModalOpen(false);
     try {
       if (!selectedCampaign || donationAmount < 0.02) {
         toast.error("Donation amount should be greater than 0.02 SOL.");
@@ -129,7 +132,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       });
       const program = new Program(idl, provider);
 
-      await program.methods
+      const res = await program.methods
         .donate(new BN(donationAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
         .accounts({
           campaign: selectedCampaign,
@@ -137,10 +140,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           systemProgram: SystemProgram.programId,
         })
         .rpc();
-
-      console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
-      setDonateModalOpen(false);
-      await getCampaigns();
+      
+        if(res){
+          console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
+          toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());
+          getCampaigns();
+        }
     } catch (error) {
       console.error("Error donating:", error);
       toast("Error donating:" + error);
@@ -148,6 +153,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   };
 
   const withdraw = async () => {
+    setWithdrawModalOpen(false);
     try {
       if (!selectedCampaign || withdrawAmount < 0.02) {
         console.error("Invalid withdraw amount.");
@@ -162,17 +168,19 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       });
       const program = new Program(idl, provider);
 
-      await program.methods
+      const res = await program.methods
         .withdraw(new BN(withdrawAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
         .accounts({
           campaign: selectedCampaign,
           user: new PublicKey(walletAddress),
         })
         .rpc();
-
-      console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-      setWithdrawModalOpen(false);
-      await getCampaigns();
+      
+        if(res){
+          console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
+          toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
+          getCampaigns();
+        }
     } catch (error) {
       console.error("Error withdrawing:", error);
       toast("Error withdrawing:" + error);
@@ -191,7 +199,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       {campaigns && campaigns
         .filter((campaign) =>
           isOwnCampaigns
-            ?  campaign.admin.toString() === walletAddress 
+            ? campaign.admin.toString() === walletAddress
             : campaign.admin.toString() !== walletAddress
         )
         .map((campaign) => (
@@ -255,7 +263,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               {campaign.admin.toString() === walletAddress && (
                 <button
                   onClick={() => {
-                    if((campaign.amountDonated / 1e9).toFixed(2) < withdrawAmount){
+                    if ((campaign.amountDonated / 1e9).toFixed(2) < withdrawAmount) {
                       toast.error("Cannot withdraw from campaign.");
                       return;
                     }
@@ -296,7 +304,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           }}>
             <button
               onClick={() => {
-                setActiveTab("myCampaigns")}}
+                setActiveTab("myCampaigns")
+              }}
               style={{
                 padding: '12px 24px',
                 border: '2px solid',
@@ -359,10 +368,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
       {/* Create Campaign Modal */}
       <Modal style={customStyles} isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
-      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
-        <h2>Create Campaign</h2>
-          <form className="dark bg-gray-900 flex flex-col" style={{width: "100%"}}>
-            <label style={{width: "100%", display: "flex", alignItems: "center", marginBottom: "10px"}}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+          <h2>Create Campaign</h2>
+          <form className="dark bg-gray-900 flex flex-col" style={{ width: "100%" }}>
+            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px" }}>
               <span>Campaign Name:</span>
               <input
                 type="text"
@@ -370,7 +379,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
               />
             </label>
-            <label style={{width: "100%", display: "flex", alignItems: "center"}}>
+            <label style={{ width: "100%", display: "flex", alignItems: "center" }}>
               <span>Campaign Description:</span>
               <textarea
                 value={newCampaign.description}
@@ -415,9 +424,9 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
       {/* Donate Modal */}
       <Modal style={customStyles} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
-      <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>          <h2>Donate to Campaign</h2>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>          <h2>Donate to Campaign</h2>
           <form className="bg-gray-900 dark flec flex-col">
-          <label style={{width: "100%", display: "flex", alignContent: "center"}}>
+            <label style={{ width: "100%", display: "flex", alignContent: "center" }}>
               <span>Donation Amount (Minimum 0.02 SOL):</span>
               <input
                 type="number"
@@ -462,10 +471,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
       {/* Withdraw Modal */}
       <Modal style={customStyles} isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
-      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center"}}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
           <h2>Withdraw from Campaign</h2>
           <form className="dark bg-gray-900">
-          <label style={{width: "100%", display: "flex", alignContent: "center"}}>
+            <label style={{ width: "100%", display: "flex", alignContent: "center" }}>
               Withdrawal Amount (Minimum 0.02 SOL):
               <input
                 type="number"

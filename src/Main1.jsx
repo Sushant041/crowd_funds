@@ -386,7 +386,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   marginBottom: '23px',
                   marginTop: "10px"
                 }}
-                onClick={createCampaign}>Create</button>
+                onClick={() =>{
+                  createCampaign();
+                  getCampaigns();
+                }}>Create</button>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -434,7 +437,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   transition: 'background-color 0.3s ease',
                   marginBottom: '10px',
                   marginTop: "10px"
-                }} onClick={donate}>Donate</button>
+                }} onClick={() => {
+                  donate();
+                  getCampaigns();
+                }}>Donate</button>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -482,7 +488,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   transition: 'background-color 0.3s ease',
                   marginBottom: '10px',
                   marginTop: "10px"
-                }} onClick={withdraw}>Withdraw</button>
+                }} onClick={()=> {
+                  withdraw();
+                  getCampaigns();
+                  }}>Withdraw</button>
               <button type="button"
                 style={{
                   padding: '12px 24px',
@@ -506,4 +515,4 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   );
 };
 
-export {Main1, getCampaigns};
+export default Main1;

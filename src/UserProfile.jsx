@@ -60,8 +60,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
         :  
         <div
         style={{
-          height: '60%',
-          width: '60%',
+          padding: "30px",
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -69,7 +68,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
           color: '#FFFFFF', // white
           borderRadius: '50%',
           border: '2px solid #22D3EE', // cyan-300 color
-          fontSize: '24px', // 2xl text
+          fontSize: '35px', // 2xl text
         }}
       >
         {getInitials(username)}
@@ -145,9 +144,11 @@ const styles = {
   },
   followers: {
     color: '#00bcd4',
+    marginRight: '2px',
   },
   following: {
     color: '#00bcd4',
+    marginRight: '2px',
   },
   icon: {
     width: '30px',

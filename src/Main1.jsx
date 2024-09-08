@@ -289,7 +289,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
           }}>
             <button
               onClick={() => {
-                setActiveTab("myCampaigns")
+                setActiveTab("myCampaigns");
+                getCampaigns();
               }}
               style={{
                 padding: '12px 24px',
@@ -306,7 +307,9 @@ const Main1 = ({ walletAddress, signTransaction }) => {
               My Campaigns
             </button>
             <button
-              onClick={() => setActiveTab("otherCampaigns")}
+              onClick={() => {
+                setActiveTab("otherCampaigns");
+                getCampaigns()}}
               style={{
                 padding: '12px 24px',
                 border: '2px solid',
@@ -386,9 +389,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   marginBottom: '23px',
                   marginTop: "10px"
                 }}
-                onClick={async () => {
-                  await createCampaign();
-                  await getCampaigns();
+                onClick={() => {
+                  createCampaign();
                 }}>Create</button>
               <button type="button"
                 style={{
@@ -437,9 +439,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   transition: 'background-color 0.3s ease',
                   marginBottom: '10px',
                   marginTop: "10px"
-                }} onClick={async() => {
-                  await donate();
-                  await getCampaigns();
+                }} onClick={() => { donate();
                 }}>Donate</button>
               <button type="button"
                 style={{
@@ -488,10 +488,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   transition: 'background-color 0.3s ease',
                   marginBottom: '10px',
                   marginTop: "10px"
-                }} onClick={async() => {
-                  await withdraw();
-                  await getCampaigns();
-                }}>Withdraw</button>
+                }} onClick={() => { withdraw(); }}>Withdraw</button>
               <button type="button"
                 style={{
                   padding: '12px 24px',

@@ -32,20 +32,22 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
   const customStyles = {
     content: {
-      backgroundColor: "#1E293B", // Tailwind's slate-900 for dark theme
-      color: "#FFFFFF", // White text for readability
-      borderRadius: "8px", // Rounded corners
-      padding: "20px", // Padding inside the modal
-      width: "400px", // Fixed width
-      margin: "auto", // Center horizontally
+      position: "absolute",
+      top: "12%",
+      left: "25%",
+      border: "none",
+      backgroundColor: "rgb(30, 41, 59)",
+      overflow: "auto",
+      borderRadius: "8px",
+      outline: "none",
+      padding: "20px",
+      color: "rgb(255, 255, 255)",
+      width: "400px",
+      margin: "auto",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      alignItems: "center",
-      border: "none", // Removing border for a cleaner look
-      top: "50%", // Center vertically
-      left: "50%",
-      transform: "translate(-50%, -50%)", // Ensure perfect centering
+      alignItems: "center", // Removing border for a cleaner look // Ensure perfect centering
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.8)", // Transparent dark overlay
@@ -392,7 +394,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                   border: "none",
                   width: "100%",
                   marginLeft: "10px",
-                  minHeight: "80px",
+                  minHeight: "60px",
                 }}
               />
             </label>

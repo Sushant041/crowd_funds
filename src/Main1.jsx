@@ -31,7 +31,7 @@ const Main1 = ({ walletAddress }) => {
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
-
+  const SOLANA_MAINNET_CHAIN_ID = "solana:101";
   const { canvasClient } = useCanvasWallet();
 
   const signTransaction = async (transaction) => {

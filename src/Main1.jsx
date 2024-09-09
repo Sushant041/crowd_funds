@@ -460,6 +460,8 @@ const Main1 = ({ walletAddress }) => {
                   width: "91%",
                   marginLeft: "10px",
                   minHeight: "60px",
+                  fontFamily: "INHERIT",
+                  fontSize: "16px",
                 }}
               />
             </label>

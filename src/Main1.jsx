@@ -176,7 +176,7 @@ const Main1 = ({ walletAddress }) => {
       [Buffer.from("CAMPAIGN_DEMO"), new PublicKey(walletAddress).toBuffer()],
       program.programId
     );
-    setCreateModalOpen(false);
+
     const res = await program.methods
       .create(newCampaign.name, newCampaign.description)
       .accounts({
@@ -211,7 +211,6 @@ const Main1 = ({ walletAddress }) => {
     });
     const program = new Program(idl, provider);
 
-    setDonateModalOpen(false);
     const res = await program.methods
       .donate(new BN(donationAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
       .accounts({
@@ -247,7 +246,6 @@ const Main1 = ({ walletAddress }) => {
     });
     const program = new Program(idl, provider);
 
-    setWithdrawModalOpen(false);
     const res = await program.methods
       .withdraw(new BN(withdrawAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
       .accounts({
@@ -267,10 +265,13 @@ const Main1 = ({ walletAddress }) => {
 
   const handleConfirm = () =>{
     if(callFun === "campaign"){
+      setCreateModalOpen(false);
       createCampaign();
     }else if(callFun === "donate"){
+      setDonateModalOpen(false);
       donate();
     }else if(callFun === "withdraw"){
+      setWithdrawModalOpen(false);
       withdraw();
     }
     setisConfirmModalOpen(false);

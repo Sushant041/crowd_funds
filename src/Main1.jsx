@@ -31,6 +31,7 @@ const Main1 = ({ walletAddress }) => {
   const [donationAmount, setDonationAmount] = useState();
   const [withdrawAmount, setWithdrawAmount] = useState();
   const [selectedCampaign, setSelectedCampaign] = useState(null);
+  const [isCreatedCampaign, setIsCreatedCampain] = useState(false);
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
   const SOLANA_MAINNET_CHAIN_ID = "solana:101";
@@ -149,6 +150,11 @@ const Main1 = ({ walletAddress }) => {
     if (!newCampaign.name || !newCampaign.description) {
       toast.info("Invalid input.");
       return;
+    }
+
+    if(isCreatedCampaign){
+      toast.error("Can not create more than one campaign");
+      return ;
     }
 
     const provider = new AnchorProvider(connection, {
@@ -280,12 +286,15 @@ const Main1 = ({ walletAddress }) => {
         </div>)
       }
       {campaigns && campaigns
-        .filter((campaign) =>
-          isOwnCampaigns
+        .filter((campaign) => {
+          if(isOwnCampaigns && campaign.admin.toString() === walletAddress)setIsCreatedCampain(true);
+          return (isOwnCampaigns
             ? campaign.admin.toString() === walletAddress
-            : campaign.admin.toString() !== walletAddress
+            : campaign.admin.toString() !== walletAddress)
+          }
         )
-        .map((campaign) => (
+        .map((campaign) =>
+          (
           <div key={campaign.pubkey.toString()} style={{
             width: '100%',
             maxWidth: '800px',

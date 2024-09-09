@@ -6,16 +6,12 @@ import {
   Connection,
   SystemProgram,
 } from "@solana/web3.js";
-import {
-  AnchorProvider,
-  BN,
-  Program,
-} from "@coral-xyz/anchor";
+import { AnchorProvider, BN, Program } from "@coral-xyz/anchor";
 import { toast } from "react-toastify";
 import { Buffer } from "buffer";
-import Modal from 'react-modal'; // Make sure to install react-modal using 'npm install react-modal'
+import Modal from "react-modal"; // Make sure to install react-modal using 'npm install react-modal'
 import useCanvasWallet from "./CanvasWalletProvider";
-import { encode } from 'bs58';
+import { encode } from "bs58";
 
 window.Buffer = Buffer;
 
@@ -39,16 +35,19 @@ const Main1 = ({ walletAddress }) => {
 
   const signTransaction = async (transaction) => {
     if (!canvasClient || !walletAddress) {
-      console.error('CanvasClient or walletAddress is not available');
+      console.error("CanvasClient or walletAddress is not available");
       return null;
     }
 
     try {
-      const network = process.env.NEXT_PUBLIC_SOLANA_RPC || "https://api.devnet.solana.com/";
-      const connection = new Connection(network, 'confirmed');
+      const network =
+        process.env.NEXT_PUBLIC_SOLANA_RPC || "https://api.devnet.solana.com/";
+      const connection = new Connection(network, "confirmed");
 
       // Fetch the latest blockhash
-      const { blockhash } = await connection.getLatestBlockhash({ commitment: "finalized" });
+      const { blockhash } = await connection.getLatestBlockhash({
+        commitment: "finalized",
+      });
       transaction.recentBlockhash = blockhash;
       transaction.feePayer = new PublicKey(walletAddress);
 
@@ -74,16 +73,16 @@ const Main1 = ({ walletAddress }) => {
 
       if (results?.untrusted?.success) {
         toast.success("transaction signed");
-        getCampaigns()
-        console.log('Transaction signed:', results);
+        getCampaigns();
+        console.log("Transaction signed:", results);
         return results;
       } else {
-        toast.error('Failed to sign transaction');
-        console.error('Failed to sign transaction');
+        toast.error("Failed to sign transaction");
+        console.error("Failed to sign transaction");
       }
     } catch (error) {
-      toast.error('Failed to sign transaction');
-      console.error('Error signing transaction:', error);
+      toast.error("Failed to sign transaction");
+      console.error("Error signing transaction:", error);
     }
     return null;
   };
@@ -118,23 +117,29 @@ const Main1 = ({ walletAddress }) => {
   }, [walletAddress]);
 
   useEffect(() => {
-    if (campaigns && campaigns.some(campaign => campaign.admin.toString() === walletAddress)) {
+    if (
+      campaigns &&
+      campaigns.some((campaign) => campaign.admin.toString() === walletAddress)
+    ) {
       setIsCreatedCampaign(true);
     }
   }, [campaigns, walletAddress]);
 
   const getCampaigns = async () => {
-
     if (!walletAddress) {
       toast.info("Wallet not connected.");
       return;
     }
-    const provider = new AnchorProvider(connection, {
-      publicKey: new PublicKey(walletAddress),
-      signTransaction,
-    }, {
-      commitment: "confirmed",
-    });
+    const provider = new AnchorProvider(
+      connection,
+      {
+        publicKey: new PublicKey(walletAddress),
+        signTransaction,
+      },
+      {
+        commitment: "confirmed",
+      }
+    );
     const program = new Program(idl, provider);
 
     const campaignAccounts = await connection.getProgramAccounts(programId);
@@ -158,17 +163,21 @@ const Main1 = ({ walletAddress }) => {
       return;
     }
 
-    if(isCreatedCampaign){
+    if (isCreatedCampaign) {
       toast.error("Can not create more than one campaign");
-      return ;
+      return;
     }
 
-    const provider = new AnchorProvider(connection, {
-      publicKey: new PublicKey(walletAddress),
-      signTransaction,
-    }, {
-      commitment: "confirmed",
-    });
+    const provider = new AnchorProvider(
+      connection,
+      {
+        publicKey: new PublicKey(walletAddress),
+        signTransaction,
+      },
+      {
+        commitment: "confirmed",
+      }
+    );
 
     const program = new Program(idl, provider);
 
@@ -203,12 +212,16 @@ const Main1 = ({ walletAddress }) => {
       return;
     }
 
-    const provider = new AnchorProvider(connection, {
-      publicKey: new PublicKey(walletAddress),
-      signTransaction,
-    }, {
-      commitment: "confirmed",
-    });
+    const provider = new AnchorProvider(
+      connection,
+      {
+        publicKey: new PublicKey(walletAddress),
+        signTransaction,
+      },
+      {
+        commitment: "confirmed",
+      }
+    );
     const program = new Program(idl, provider);
 
     const res = await program.methods
@@ -220,10 +233,19 @@ const Main1 = ({ walletAddress }) => {
       })
       .rpc();
     if (res) {
-      console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
-      toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());
-    }
-    else {
+      console.log(
+        "Donated:",
+        donationAmount,
+        "to:",
+        selectedCampaign.toString()
+      );
+      toast.success(
+        "Donated:",
+        donationAmount,
+        "to:",
+        selectedCampaign.toString()
+      );
+    } else {
       console.log(res);
     }
   };
@@ -238,12 +260,16 @@ const Main1 = ({ walletAddress }) => {
       return;
     }
 
-    const provider = new AnchorProvider(connection, {
-      publicKey: new PublicKey(walletAddress),
-      signTransaction,
-    }, {
-      commitment: "confirmed",
-    });
+    const provider = new AnchorProvider(
+      connection,
+      {
+        publicKey: new PublicKey(walletAddress),
+        signTransaction,
+      },
+      {
+        commitment: "confirmed",
+      }
+    );
     const program = new Program(idl, provider);
 
     const res = await program.methods
@@ -255,164 +281,204 @@ const Main1 = ({ walletAddress }) => {
       .rpc();
 
     if (res) {
-      console.log("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-      toast.success("Withdrew:", withdrawAmount, "from:", selectedCampaign.toString());
-    }
-    else {
+      console.log(
+        "Withdrew:",
+        withdrawAmount,
+        "from:",
+        selectedCampaign.toString()
+      );
+      toast.success(
+        "Withdrew:",
+        withdrawAmount,
+        "from:",
+        selectedCampaign.toString()
+      );
+    } else {
       console.log(res);
     }
   };
 
-  const handleConfirm = () =>{
-    if(callFun === "campaign"){
+  const handleConfirm = () => {
+    if (callFun === "campaign") {
       setCreateModalOpen(false);
       createCampaign();
-    }else if(callFun === "donate"){
+    } else if (callFun === "donate") {
       setDonateModalOpen(false);
       donate();
-    }else if(callFun === "withdraw"){
+    } else if (callFun === "withdraw") {
       setWithdrawModalOpen(false);
       withdraw();
     }
     setisConfirmModalOpen(false);
-  }
+  };
 
   const renderCampaigns = (isOwnCampaigns) => (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       {isOwnCampaigns && (
-        <div style={{ width: '100%', maxWidth: '800px', textAlign: 'center', marginBottom: '16px', color: '#fff' }}>
-          <p style={{ color: '#ccc' }}>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            textAlign: "center",
+            marginBottom: "16px",
+            color: "#fff",
+          }}
+        >
+          <p style={{ color: "#ccc" }}>
             Note: You can only create a campaign once per account.
           </p>
         </div>
       )}
-      {!campaigns &&
-        (<div className='flex justify-center w-full h-full items-center'>
-          <div className='spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full' role='status'></div>
-          <span className='ml-2 text-lg'>Loading...</span>
-        </div>)
-      }
-      {campaigns && campaigns
-        .filter((campaign) => {
-          return (isOwnCampaigns
-            ? campaign.admin.toString() === walletAddress
-            : campaign.admin.toString() !== walletAddress)
-          }
-        )
-        .map((campaign) =>
-          (
-          <div key={campaign.pubkey.toString()} style={{
-            width: '100%',
-            maxWidth: '800px',
-            border: '1px solid grey',
-            borderRadius: '8px',
-            padding: '16px',
-            margin: '16px 0',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            backgroundColor: "#1C212E",
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              marginBottom: '48px',
-              textAlign: 'left'
-            }}>
-              <h3 style={{
-                margin: '0 0 8px',
-                color: '#00BCD4'
-              }}>{campaign.name}</h3>
-              <p style={{ margin: '4px 0', color: '#ccc' }}>
-                <strong>Description:</strong> {campaign.description}
-              </p>
-              <p style={{ margin: '4px 0', color: '#ccc' }}>
-                <strong>Balance:</strong> {(campaign.amountDonated / 1e9).toFixed(2)} SOL
-              </p>
-              <p style={{ margin: '4px 0', color: '#ccc' }}>
-                <strong>Admin:</strong> {campaign.admin.toString()}
-              </p>
-            </div>
-            <div style={{
-              position: 'absolute',
-              bottom: '16px',
-              right: '16px',
-              display: 'flex',
-              gap: '8px'
-            }}>
-              <button
-                onClick={() => {
-                  setDonateModalOpen(true);
-                  setSelectedCampaign(campaign.pubkey);
-                }}
+      {!campaigns && (
+        <div className="flex justify-center w-full h-full items-center">
+          <div
+            className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+            role="status"
+          ></div>
+          <span className="ml-2 text-lg">Loading...</span>
+        </div>
+      )}
+      {campaigns &&
+        campaigns
+          .filter((campaign) => {
+            return isOwnCampaigns
+              ? campaign.admin.toString() === walletAddress
+              : campaign.admin.toString() !== walletAddress;
+          })
+          .map((campaign) => (
+            <div
+              key={campaign.pubkey.toString()}
+              style={{
+                width: "100%",
+                maxWidth: "800px",
+                border: "1px solid grey",
+                borderRadius: "8px",
+                padding: "16px",
+                margin: "16px 0",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                backgroundColor: "#1C212E",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
                 style={{
-                  padding: '8px 16px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: '#fff',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease'
+                  display: "flex",
+                  flexDirection: "column",
+                  marginBottom: "48px",
+                  textAlign: "left",
                 }}
               >
-                Donate
-              </button>
-              {campaign.admin.toString() === walletAddress && (
+                <h3
+                  style={{
+                    margin: "0 0 8px",
+                    color: "#00BCD4",
+                  }}
+                >
+                  {campaign.name}
+                </h3>
+                <p style={{ margin: "4px 0", color: "#ccc" }}>
+                  <strong>Description:</strong> {campaign.description}
+                </p>
+                <p style={{ margin: "4px 0", color: "#ccc" }}>
+                  <strong>Balance:</strong>{" "}
+                  {(campaign.amountDonated / 1e9).toFixed(2)} SOL
+                </p>
+                <p style={{ margin: "4px 0", color: "#ccc" }}>
+                  <strong>Admin:</strong> {campaign.admin.toString()}
+                </p>
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "16px",
+                  right: "16px",
+                  display: "flex",
+                  gap: "8px",
+                }}
+              >
                 <button
                   onClick={() => {
-                    if ((campaign.amountDonated / 1e9).toFixed(2) < withdrawAmount) {
-                      toast.error("Cannot withdraw from campaign.");
-                      return;
-                    }
-                    setWithdrawModalOpen(true);
+                    setDonateModalOpen(true);
                     setSelectedCampaign(campaign.pubkey);
                   }}
                   style={{
-                    padding: '8px 16px',
-                    border: 'none',
-                    borderRadius: '4px',
-                    backgroundColor: '#6366F1',
-                    color: '#fff',
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                    transition: 'background-color 0.3s ease'
+                    padding: "8px 16px",
+                    border: "none",
+                    borderRadius: "4px",
+                    backgroundColor: "#6366F1",
+                    color: "#fff",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                    transition: "background-color 0.3s ease",
                   }}
                 >
-                  Withdraw
+                  Donate
                 </button>
-              )}
+                {campaign.admin.toString() === walletAddress && (
+                  <button
+                    onClick={() => {
+                      if (
+                        (campaign.amountDonated / 1e9).toFixed(2) <
+                        withdrawAmount
+                      ) {
+                        toast.error("Cannot withdraw from campaign.");
+                        return;
+                      }
+                      setWithdrawModalOpen(true);
+                      setSelectedCampaign(campaign.pubkey);
+                    }}
+                    style={{
+                      padding: "8px 16px",
+                      border: "none",
+                      borderRadius: "4px",
+                      backgroundColor: "#6366F1",
+                      color: "#fff",
+                      cursor: "pointer",
+                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                      transition: "background-color 0.3s ease",
+                    }}
+                  >
+                    Withdraw
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
     </div>
   );
 
   return (
-    <div style={{ padding: '16px' }}>
+    <div style={{ padding: "16px" }}>
       {walletAddress ? (
         <div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginBottom: '16px',
-            gap: '16px'
-          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "16px",
+              gap: "16px",
+            }}
+          >
             <button
               onClick={() => {
                 setActiveTab("myCampaigns");
                 getCampaigns();
               }}
               style={{
-                padding: '12px 24px',
-                border: '2px solid',
+                padding: "12px 24px",
+                border: "2px solid",
                 width: "54%",
-                borderColor: activeTab === "myCampaigns" ? '#00BCD4' : '#1C212E',
-                backgroundColor: activeTab === "myCampaigns" ? '#1C212E' : '#2F3C57',
-                color: activeTab === "myCampaigns" ? '#00BCD4' : '#fff',
-                cursor: 'pointer',
-                fontWeight: activeTab === "myCampaigns" ? 'bold' : 'normal',
-                transition: 'all 0.3s ease'
+                borderColor:
+                  activeTab === "myCampaigns" ? "#00BCD4" : "#1C212E",
+                backgroundColor:
+                  activeTab === "myCampaigns" ? "#1C212E" : "#2F3C57",
+                color: activeTab === "myCampaigns" ? "#00BCD4" : "#fff",
+                cursor: "pointer",
+                fontWeight: activeTab === "myCampaigns" ? "bold" : "normal",
+                transition: "all 0.3s ease",
               }}
             >
               My Campaigns
@@ -420,18 +486,20 @@ const Main1 = ({ walletAddress }) => {
             <button
               onClick={() => {
                 setActiveTab("otherCampaigns");
-                getCampaigns()
+                getCampaigns();
               }}
               style={{
-                padding: '12px 24px',
-                border: '2px solid',
+                padding: "12px 24px",
+                border: "2px solid",
                 width: "54%",
-                borderColor: activeTab === "otherCampaigns" ? '#00BCD4' : '#1C212E',
-                backgroundColor: activeTab === "otherCampaigns" ? '#1C212E' : '#2F3C57',
-                color: activeTab === "otherCampaigns" ? '#00BCD4' : '#fff',
-                cursor: 'pointer',
-                fontWeight: activeTab === "otherCampaigns" ? 'bold' : 'normal',
-                transition: 'all 0.3s ease'
+                borderColor:
+                  activeTab === "otherCampaigns" ? "#00BCD4" : "#1C212E",
+                backgroundColor:
+                  activeTab === "otherCampaigns" ? "#1C212E" : "#2F3C57",
+                color: activeTab === "otherCampaigns" ? "#00BCD4" : "#fff",
+                cursor: "pointer",
+                fontWeight: activeTab === "otherCampaigns" ? "bold" : "normal",
+                transition: "all 0.3s ease",
               }}
             >
               Other Campaigns
@@ -442,17 +510,17 @@ const Main1 = ({ walletAddress }) => {
               <button
                 onClick={() => setCreateModalOpen(true)}
                 style={{
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: '#fff',
+                  padding: "12px 24px",
+                  border: "none",
+                  borderRadius: "4px",
+                  backgroundColor: "#6366F1",
+                  color: "#fff",
                   width: "100%",
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease',
-                  marginBottom: '23px',
-                  marginTop: "10px"
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "23px",
+                  marginTop: "10px",
                 }}
               >
                 Create Campaign +
@@ -467,23 +535,60 @@ const Main1 = ({ walletAddress }) => {
       )}
 
       {/* Create Campaign Modal */}
-      <Modal style={customStyles} isOpen={isCreateModalOpen} onRequestClose={() => setCreateModalOpen(false)}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      <Modal
+        style={customStyles}
+        isOpen={isCreateModalOpen}
+        onRequestClose={() => setCreateModalOpen(false)}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <h2>Create Campaign</h2>
-          <form className="dark bg-gray-900 flex flex-col" style={{ width: "100%" }}>
-            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
+          <form
+            className="dark bg-gray-900 flex flex-col"
+            style={{ width: "100%" }}
+          >
+            <label
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+                color: "#fff",
+              }}
+            >
               <span>Campaign Name:</span>
               <input
                 type="text"
                 value={newCampaign.name}
-                onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
+                onChange={(e) =>
+                  setNewCampaign({ ...newCampaign, name: e.target.value })
+                }
               />
             </label>
-            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
+            <label
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+                color: "#fff",
+              }}
+            >
               <span>Campaign Description:</span>
               <textarea
                 value={newCampaign.description}
-                onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
+                onChange={(e) =>
+                  setNewCampaign({
+                    ...newCampaign,
+                    description: e.target.value,
+                  })
+                }
                 style={{
                   backgroundColor: "#374151",
                   color: "#fff",
@@ -546,11 +651,33 @@ const Main1 = ({ walletAddress }) => {
       </Modal>
 
       {/* Donate Modal */}
-      <Modal style={customStyles} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+      <Modal
+        style={customStyles}
+        isOpen={isDonateModalOpen}
+        onRequestClose={() => setDonateModalOpen(false)}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
           <h2>Donate to Campaign</h2>
-          <form className="dark bg-gray-900 flex flex-col" style={{ width: "100%" }}>
-            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
+          <form
+            className="dark bg-gray-900 flex flex-col"
+            style={{ width: "100%" }}
+          >
+            <label
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+                color: "#fff",
+              }}
+            >
               <span>Donation Amount (Minimum 0.02 SOL):</span>
               <input
                 type="number"
@@ -560,7 +687,8 @@ const Main1 = ({ walletAddress }) => {
               />
             </label>
             <div>
-              <button type="button"
+              <button
+                type="button"
                 style={{
                   padding: "12px 24px",
                   border: "none",
@@ -573,11 +701,16 @@ const Main1 = ({ walletAddress }) => {
                   transition: "background-color 0.3s ease",
                   marginBottom: "10px",
                   marginTop: "10px",
-                }} onClick={() => {
+                }}
+                onClick={() => {
                   setCallFun("donate");
                   setisConfirmModalOpen(true);
-                }}>Donate</button>
-              <button type="button"
+                }}
+              >
+                Donate
+              </button>
+              <button
+                type="button"
                 style={{
                   padding: "12px 24px",
                   border: "none",
@@ -590,18 +723,44 @@ const Main1 = ({ walletAddress }) => {
                   transition: "background-color 0.3s ease",
                   marginBottom: "10px",
                   marginTop: "10px",
-                }} onClick={() => setDonateModalOpen(false)}>Cancel</button>
+                }}
+                onClick={() => setDonateModalOpen(false)}
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
       </Modal>
 
       {/* Withdraw Modal */}
-      <Modal style={customStyles} isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+      <Modal
+        style={customStyles}
+        isOpen={isWithdrawModalOpen}
+        onRequestClose={() => setWithdrawModalOpen(false)}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
           <h2>Withdraw from Campaign</h2>
-          <form className="dark bg-gray-900 flex flex-col" style={{ width: "100%" }}>
-            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
+          <form
+            className="dark bg-gray-900 flex flex-col"
+            style={{ width: "100%" }}
+          >
+            <label
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+                color: "#fff",
+              }}
+            >
               Withdrawal Amount (Minimum 0.02 SOL):
               <input
                 type="number"
@@ -611,7 +770,8 @@ const Main1 = ({ walletAddress }) => {
               />
             </label>
             <div>
-              <button type="button"
+              <button
+                type="button"
                 style={{
                   padding: "12px 24px",
                   border: "none",
@@ -624,11 +784,16 @@ const Main1 = ({ walletAddress }) => {
                   transition: "background-color 0.3s ease",
                   marginBottom: "10px",
                   marginTop: "10px",
-                }} onClick={() => { 
+                }}
+                onClick={() => {
                   setCallFun("withdraw");
-                  setisConfirmModalOpen(true); }}>
-                  Withdraw</button>
-              <button type="button"
+                  setisConfirmModalOpen(true);
+                }}
+              >
+                Withdraw
+              </button>
+              <button
+                type="button"
                 style={{
                   padding: "12px 24px",
                   border: "none",
@@ -641,45 +806,72 @@ const Main1 = ({ walletAddress }) => {
                   transition: "background-color 0.3s ease",
                   marginBottom: "10px",
                   marginTop: "10px",
-                }} onClick={() => setWithdrawModalOpen(false)}>Cancel</button>
-
+                }}
+                onClick={() => setWithdrawModalOpen(false)}
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
       </Modal>
 
-      <Modal style={customStyles} isOpen={isConfirmModalOpen} onRequestClose={() => setisConfirmModalOpen(false)}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
-          <h2>Before making this transection make sure you have enough balance in your wallet</h2>
+      <Modal
+        style={customStyles}
+        isOpen={isConfirmModalOpen}
+        onRequestClose={() => setisConfirmModalOpen(false)}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <h2>
+            Before making this transection make sure you have enough balance in
+            your wallet
+          </h2>
           <div>
-            <button type="button"
-                style={{
-                  padding: "12px 24px",
-                  border: "none",
-                  width: "100%",
-                  borderRadius: "4px",
-                  backgroundColor: "rgb(99, 102, 241)", 
-                  color: "#fff",
-                  cursor: "pointer",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                  transition: "background-color 0.3s ease",
-                  marginBottom: "10px",
-                  marginTop: "10px",
-                }} onClick={handleConfirm}>Confirm</button>
-            <button type="button"
-                style={{
-                  padding: "12px 24px",
-                  border: "none",
-                  width: "100%",
-                  borderRadius: "4px",
-                  backgroundColor: "#FF4C4C",
-                  color: "#fff",
-                  cursor: "pointer",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                  transition: "background-color 0.3s ease",
-                  marginBottom: "10px",
-                  marginTop: "10px",
-                }} onClick={() => setisConfirmModalOpen(false)}>Cancel</button>
+            <button
+              type="button"
+              style={{
+                padding: "12px 24px",
+                border: "none",
+                width: "100%",
+                borderRadius: "4px",
+                backgroundColor: "rgb(99, 102, 241)",
+                color: "#fff",
+                cursor: "pointer",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                transition: "background-color 0.3s ease",
+                marginBottom: "10px",
+                marginTop: "10px",
+              }}
+              onClick={handleConfirm}
+            >
+              Confirm
+            </button>
+            <button
+              type="button"
+              style={{
+                padding: "12px 24px",
+                border: "none",
+                width: "100%",
+                borderRadius: "4px",
+                backgroundColor: "#FF4C4C",
+                color: "#fff",
+                cursor: "pointer",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                transition: "background-color 0.3s ease",
+                marginBottom: "10px",
+                marginTop: "10px",
+              }}
+              onClick={() => setisConfirmModalOpen(false)}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </Modal>

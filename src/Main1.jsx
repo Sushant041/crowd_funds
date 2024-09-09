@@ -62,7 +62,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   const getCampaigns = async () => {
 
     if (!walletAddress) {
-      console.error("Wallet not connected.");
+      toast.info("Wallet not connected.");
       return;
     }
     const provider = new AnchorProvider(connection, {
@@ -85,9 +85,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   };
 
   const createCampaign = async () => {
-    setCreateModalOpen(false);
-    if (!walletAddress || !newCampaign.name || !newCampaign.description) {
-      console.error("Invalid input.");
+    if(!walletAddress){
+      toast.info("Connect your wallet first");
+      return;
+    }
+    if (!newCampaign.name || !newCampaign.description) {
+      toast.info("Invalid input.");
       return;
     }
 
@@ -104,7 +107,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       [Buffer.from("CAMPAIGN_DEMO"), new PublicKey(walletAddress).toBuffer()],
       program.programId
     );
-
+    setCreateModalOpen(false);
     const res = await program.methods
       .create(newCampaign.name, newCampaign.description)
       .accounts({
@@ -121,9 +124,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   };
 
   const donate = async () => {
-    setDonateModalOpen(false);
+    if(!walletAddress){
+      toast.info("Connect your wallet first");
+      return;
+    }
     if (!selectedCampaign || donationAmount < 0.02) {
-      toast.error("Donation amount should be greater than 0.02 SOL.");
+      toast.info("Donation amount should be greater than 0.02 SOL.");
       console.error("Invalid donation amount.");
       return;
     }
@@ -136,6 +142,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
     });
     const program = new Program(idl, provider);
 
+    setDonateModalOpen(false);
     const res = await program.methods
       .donate(new BN(donationAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
       .accounts({
@@ -155,9 +162,12 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   };
 
   const withdraw = async () => {
-    setWithdrawModalOpen(false);
+    if(!walletAddress){
+      toast.info("Connect your wallet first");
+      return;
+    }
     if (!selectedCampaign || withdrawAmount < 0.02) {
-      console.error("Invalid withdraw amount.");
+      toast.info("Invalid withdraw amount.");
       return;
     }
 
@@ -169,6 +179,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
     });
     const program = new Program(idl, provider);
 
+    setWithdrawModalOpen(false);
     const res = await program.methods
       .withdraw(new BN(withdrawAmount * 1e9)) // Convert SOL to lamports (1 SOL = 1e9 lamports)
       .accounts({

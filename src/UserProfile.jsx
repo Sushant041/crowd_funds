@@ -62,6 +62,7 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
         style={{
           padding: "30px",
           display: 'flex',
+          width: "55px",
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: '#111827', // gray-900 color

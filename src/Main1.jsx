@@ -32,10 +32,23 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
   const customStyles = {
     content: {
-      backgroundColor: "black",
+      backgroundColor: "#1E293B", // Tailwind's slate-900 for dark theme
+      color: "#FFFFFF", // White text for readability
+      borderRadius: "8px", // Rounded corners
+      padding: "20px", // Padding inside the modal
+      width: "400px", // Fixed width
+      margin: "auto", // Center horizontally
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      border: "none", // Removing border for a cleaner look
+      top: "50%", // Center vertically
+      left: "50%",
+      transform: "translate(-50%, -50%)", // Ensure perfect centering
     },
     overlay: {
-      backgroundColor: 'rgba(0, 0, 0)',
+      backgroundColor: "rgba(0, 0, 0, 0.8)", // Transparent dark overlay
     },
   };
 
@@ -275,8 +288,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
     </div>
   );
 
-
-
   return (
     <div style={{ padding: '16px' }}>
       {walletAddress ? (
@@ -309,7 +320,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
             <button
               onClick={() => {
                 setActiveTab("otherCampaigns");
-                getCampaigns()}}
+                getCampaigns()
+              }}
               style={{
                 padding: '12px 24px',
                 border: '2px solid',
@@ -359,7 +371,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
           <h2>Create Campaign</h2>
           <form className="dark bg-gray-900 flex flex-col" style={{ width: "100%" }}>
-            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px" }}>
+            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
               <span>Campaign Name:</span>
               <input
                 type="text"
@@ -367,46 +379,64 @@ const Main1 = ({ walletAddress, signTransaction }) => {
                 onChange={(e) => setNewCampaign({ ...newCampaign, name: e.target.value })}
               />
             </label>
-            <label style={{ width: "100%", display: "flex", alignItems: "center" }}>
+            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
               <span>Campaign Description:</span>
               <textarea
                 value={newCampaign.description}
                 onChange={(e) => setNewCampaign({ ...newCampaign, description: e.target.value })}
+                style={{
+                  backgroundColor: "#374151",
+                  color: "#fff",
+                  borderRadius: "4px",
+                  padding: "8px",
+                  border: "none",
+                  width: "100%",
+                  marginLeft: "10px",
+                  minHeight: "80px",
+                }}
               />
             </label>
             <div>
-              <button type="button"
+              <button
+                type="button"
                 style={{
-                  padding: '12px 24px',
-                  border: 'none',
+                  padding: "12px 24px",
+                  border: "none",
                   width: "100%",
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: '#fff',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease',
-                  marginBottom: '23px',
-                  marginTop: "10px"
+                  borderRadius: "4px",
+                  backgroundColor: "rgb(99, 102, 241)", // Button color (rgb(99, 102, 241))
+                  color: "#fff",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
                 }}
                 onClick={() => {
                   createCampaign();
-                }}>Create</button>
-              <button type="button"
-                style={{
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: 'red',
-                  width: "100%",
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease',
-                  marginBottom: '23px',
-                  marginTop: "10px"
                 }}
-                onClick={() => setCreateModalOpen(false)}>Cancel</button>
+              >
+                Create
+              </button>
+              <button
+                type="button"
+                style={{
+                  padding: "12px 24px",
+                  border: "none",
+                  borderRadius: "4px",
+                  backgroundColor: "red",
+                  color: "#fff",
+                  width: "100%",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
+                }}
+                onClick={() => setCreateModalOpen(false)}
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
@@ -414,9 +444,10 @@ const Main1 = ({ walletAddress, signTransaction }) => {
 
       {/* Donate Modal */}
       <Modal style={customStyles} isOpen={isDonateModalOpen} onRequestClose={() => setDonateModalOpen(false)}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>          <h2>Donate to Campaign</h2>
-          <form className="bg-gray-900 dark flec flex-col">
-            <label style={{ width: "100%", display: "flex", alignContent: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+          <h2>Donate to Campaign</h2>
+          <form className="dark bg-gray-900 flex flex-col" style={{ width: "100%" }}>
+            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
               <span>Donation Amount (Minimum 0.02 SOL):</span>
               <input
                 type="number"
@@ -428,32 +459,33 @@ const Main1 = ({ walletAddress, signTransaction }) => {
             <div>
               <button type="button"
                 style={{
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: '#fff',
-                  width: '100%',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease',
-                  marginBottom: '10px',
-                  marginTop: "10px"
-                }} onClick={() => { donate();
+                  padding: "12px 24px",
+                  border: "none",
+                  width: "100%",
+                  borderRadius: "4px",
+                  backgroundColor: "rgb(99, 102, 241)", // Button color (rgb(99, 102, 241))
+                  color: "#fff",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
+                }} onClick={() => {
+                  donate();
                 }}>Donate</button>
               <button type="button"
                 style={{
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: 'red',
+                  padding: "12px 24px",
+                  border: "none",
+                  borderRadius: "4px",
+                  backgroundColor: "red",
+                  color: "#fff",
                   width: "100%",
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease',
-                  marginBottom: '10px',
-                  marginTop: "10px"
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
                 }} onClick={() => setDonateModalOpen(false)}>Cancel</button>
             </div>
           </form>
@@ -464,8 +496,8 @@ const Main1 = ({ walletAddress, signTransaction }) => {
       <Modal style={customStyles} isOpen={isWithdrawModalOpen} onRequestClose={() => setWithdrawModalOpen(false)}>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
           <h2>Withdraw from Campaign</h2>
-          <form className="dark bg-gray-900">
-            <label style={{ width: "100%", display: "flex", alignContent: "center" }}>
+          <form className="dark bg-gray-900 flex flex-col" style={{ width: "100%" }}>
+            <label style={{ width: "100%", display: "flex", alignItems: "center", marginBottom: "10px", color: "#fff" }}>
               Withdrawal Amount (Minimum 0.02 SOL):
               <input
                 type="number"
@@ -477,31 +509,31 @@ const Main1 = ({ walletAddress, signTransaction }) => {
             <div>
               <button type="button"
                 style={{
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: '#fff',
+                  padding: "12px 24px",
+                  border: "none",
                   width: "100%",
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease',
-                  marginBottom: '10px',
-                  marginTop: "10px"
+                  borderRadius: "4px",
+                  backgroundColor: "rgb(99, 102, 241)", // Button color (rgb(99, 102, 241))
+                  color: "#fff",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
                 }} onClick={() => { withdraw(); }}>Withdraw</button>
               <button type="button"
                 style={{
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '4px',
-                  backgroundColor: '#6366F1',
-                  color: 'red',
+                  padding: "12px 24px",
+                  border: "none",
+                  borderRadius: "4px",
+                  backgroundColor: "red",
+                  color: "#fff",
                   width: "100%",
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  transition: 'background-color 0.3s ease',
-                  marginBottom: '10px',
-                  marginTop: "10px"
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
                 }} onClick={() => setWithdrawModalOpen(false)}>Cancel</button>
 
             </div>

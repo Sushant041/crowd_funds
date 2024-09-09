@@ -26,8 +26,8 @@ const Main1 = ({ walletAddress }) => {
   const [isDonateModalOpen, setDonateModalOpen] = useState(false);
   const [isWithdrawModalOpen, setWithdrawModalOpen] = useState(false);
   const [newCampaign, setNewCampaign] = useState({ name: "", description: "" });
-  const [donationAmount, setDonationAmount] = useState(0);
-  const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [donationAmount, setDonationAmount] = useState();
+  const [withdrawAmount, setWithdrawAmount] = useState();
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");

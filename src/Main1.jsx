@@ -33,8 +33,7 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   const customStyles = {
     content: {
       position: "absolute",
-      top: "12%",
-      left: "25%",
+      inset: "12% 40px 40px 5%",
       border: "none",
       backgroundColor: "rgb(30, 41, 59)",
       overflow: "auto",

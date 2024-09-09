@@ -59,11 +59,6 @@ const Main1 = ({ walletAddress }) => {
 
       const base58Tx = encode(serializedTx);
 
-      setNewCampaign({ name: "", description: "" });
-      setDonationAmount(0);
-      setWithdrawAmount(0);
-      setSelectedCampaign(null);
-
       // Sign and send the transaction via canvasClient
       const results = await canvasClient.signAndSendTransaction({
         unsignedTx: base58Tx,
@@ -155,15 +150,18 @@ const Main1 = ({ walletAddress }) => {
 
   const createCampaign = async () => {
     if (!walletAddress) {
+      setNewCampaign({ name: "", description: "" });
       toast.info("Connect your wallet first");
       return;
     }
     if (!newCampaign.name || !newCampaign.description) {
+      setNewCampaign({ name: "", description: "" });
       toast.info("Invalid input.");
       return;
     }
 
     if (isCreatedCampaign) {
+      setNewCampaign({ name: "", description: "" });
       toast.error("Can not create more than one campaign");
       return;
     }
@@ -203,10 +201,12 @@ const Main1 = ({ walletAddress }) => {
 
   const donate = async () => {
     if (!walletAddress) {
+      setDonationAmount(0);
       toast.info("Connect your wallet first");
       return;
     }
     if (!selectedCampaign || donationAmount < 0.02) {
+      setDonationAmount(0);
       toast.info("Donation amount should be greater than 0.02 SOL.");
       console.error("Invalid donation amount.");
       return;
@@ -252,10 +252,12 @@ const Main1 = ({ walletAddress }) => {
 
   const withdraw = async () => {
     if (!walletAddress) {
+      setWithdrawAmount(0);
       toast.info("Connect your wallet first");
       return;
     }
     if (!selectedCampaign || withdrawAmount < 0.02) {
+      setWithdrawAmount(0);
       toast.info("Invalid withdraw amount.");
       return;
     }
@@ -299,6 +301,7 @@ const Main1 = ({ walletAddress }) => {
   };
 
   const handleConfirm = () => {
+    setSelectedCampaign(null);
     if (callFun === "campaign") {
       setCreateModalOpen(false);
       createCampaign();

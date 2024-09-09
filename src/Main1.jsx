@@ -832,10 +832,16 @@ const Main1 = ({ walletAddress }) => {
             alignContent: "center",
           }}
         >
-          <h2>
+          <p style={{
+            background: "#1a1e1e",
+            padding: "10px",
+            borderRadius: "5px",
+            color: "orange",
+            fontSize: "20px",
+          }}>
             Before making this transection make sure you have enough balance in
-            your wallet
-          </h2>
+            your wallet!!
+          </p>
           <div>
             <button
               type="button"

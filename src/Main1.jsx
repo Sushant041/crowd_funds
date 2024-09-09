@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { Buffer } from "buffer";
 import Modal from 'react-modal'; // Make sure to install react-modal using 'npm install react-modal'
 import useCanvasWallet from "./CanvasWalletProvider";
+import { encode } from 'bs58';
 
 window.Buffer = Buffer;
 

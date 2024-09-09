@@ -56,7 +56,7 @@ export const CanvasWalletProvider = ({ children }) => {
                     setWalletAddress(response.untrusted.address);
                     setWalletIcon(response.untrusted.walletIcon);
                     toast.success("Wallet connected")
-                    console.log('Wallet connected:', response);
+                    console.log('Wallet connected:', response.untrusted.address);
                 } else {
                     toast.error('Failed to connect');
                     console.error('Failed to connect wallet');

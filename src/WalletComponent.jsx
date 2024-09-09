@@ -24,8 +24,8 @@ const WalletComponent = () => {
       )}
 
 
-      {walletAddress && signTransaction && (
-        <Main1 walletAddress={walletAddress} signTransaction={signTransaction } />
+      {walletAddress &&  (
+        <Main1 walletAddress={walletAddress} />
       )}
     </div>
   );

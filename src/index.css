@@ -46,6 +46,15 @@ input {
   font-size: 16px;
 }
 
+.spinner-border {
+  border: 4px solid #4f46e5;
+  border-top: 4px solid #6366f1;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;

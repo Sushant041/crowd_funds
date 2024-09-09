@@ -35,49 +35,49 @@ const Main1 = ({ walletAddress }) => {
 
   const signTransaction = async (transaction) => {
     if (!canvasClient || !walletAddress) {
-        console.error('CanvasClient or walletAddress is not available');
-        return null;
+      console.error('CanvasClient or walletAddress is not available');
+      return null;
     }
 
     try {
-        const network = process.env.NEXT_PUBLIC_SOLANA_RPC || "https://api.devnet.solana.com/";
-        const connection = new Connection(network, 'confirmed');
+      const network = process.env.NEXT_PUBLIC_SOLANA_RPC || "https://api.devnet.solana.com/";
+      const connection = new Connection(network, 'confirmed');
 
-        // Fetch the latest blockhash
-        const { blockhash } = await connection.getLatestBlockhash({ commitment: "finalized" });
-        transaction.recentBlockhash = blockhash;
-        transaction.feePayer = new PublicKey(walletAddress);
+      // Fetch the latest blockhash
+      const { blockhash } = await connection.getLatestBlockhash({ commitment: "finalized" });
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = new PublicKey(walletAddress);
 
-        // Serialize the transaction
-        const serializedTx = transaction.serialize({
-            requireAllSignatures: false,
-            verifySignatures: false,
-        });
+      // Serialize the transaction
+      const serializedTx = transaction.serialize({
+        requireAllSignatures: false,
+        verifySignatures: false,
+      });
 
-        const base58Tx = encode(serializedTx);
+      const base58Tx = encode(serializedTx);
 
-        // Sign and send the transaction via canvasClient
-        const results = await canvasClient.signAndSendTransaction({
-            unsignedTx: base58Tx,
-            awaitCommitment: "confirmed",
-            chainId: SOLANA_MAINNET_CHAIN_ID,
-        });
+      // Sign and send the transaction via canvasClient
+      const results = await canvasClient.signAndSendTransaction({
+        unsignedTx: base58Tx,
+        awaitCommitment: "confirmed",
+        chainId: SOLANA_MAINNET_CHAIN_ID,
+      });
 
-        if (results?.untrusted?.success) {
-            toast.success("transaction signed");
-            getCampaigns()
-            console.log('Transaction signed:', results);
-            return results;
-        } else {
-            toast.error('Failed to sign transaction');
-            console.error('Failed to sign transaction');
-        }
-    } catch (error) {
+      if (results?.untrusted?.success) {
+        toast.success("transaction signed");
+        getCampaigns()
+        console.log('Transaction signed:', results);
+        return results;
+      } else {
         toast.error('Failed to sign transaction');
-        console.error('Error signing transaction:', error);
+        console.error('Failed to sign transaction');
+      }
+    } catch (error) {
+      toast.error('Failed to sign transaction');
+      console.error('Error signing transaction:', error);
     }
     return null;
-};
+  };
 
   const customStyles = {
     content: {
@@ -134,7 +134,7 @@ const Main1 = ({ walletAddress }) => {
   };
 
   const createCampaign = async () => {
-    if(!walletAddress){
+    if (!walletAddress) {
       toast.info("Connect your wallet first");
       return;
     }
@@ -173,7 +173,7 @@ const Main1 = ({ walletAddress }) => {
   };
 
   const donate = async () => {
-    if(!walletAddress){
+    if (!walletAddress) {
       toast.info("Connect your wallet first");
       return;
     }
@@ -210,7 +210,7 @@ const Main1 = ({ walletAddress }) => {
   };
 
   const withdraw = async () => {
-    if(!walletAddress){
+    if (!walletAddress) {
       toast.info("Connect your wallet first");
       return;
     }
@@ -254,6 +254,12 @@ const Main1 = ({ walletAddress }) => {
           </p>
         </div>
       )}
+      {!campaigns &&
+        (<div className='flex justify-center w-full h-full items-center'>
+          <div className='spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full' role='status'></div>
+          <span className='ml-2 text-lg'>Loading...</span>
+        </div>)
+      }
       {campaigns && campaigns
         .filter((campaign) =>
           isOwnCampaigns

@@ -46,7 +46,10 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return (<div className='flex justify-center w-full h-full items-center'>
+  <div className='spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full' role='status'></div>
+  <span className='ml-2 text-lg'>Loading...</span>
+</div>);
   if (error) return <div>{error}</div>;
 
   return userData ? (

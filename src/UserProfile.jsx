@@ -46,9 +46,18 @@ const UserProfile = ({ username, walletAddress, avatar }) => {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
   };
 
-  if (loading) return (<div className='flex justify-center w-full h-full items-center'>
-  <div className='spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full' role='status'></div>
-  <span className='ml-2 text-lg'>Loading...</span>
+  if (loading) return (<div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+  }}>
+  <div className='spinner-border' role='status'></div>
+  <span style={{
+    marginLeft: '0.5rem',
+    fontSize: '1.125rem',
+  }}>Loading...</span>
 </div>);
   if (error) return <div>{error}</div>;
 

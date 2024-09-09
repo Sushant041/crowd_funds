@@ -119,7 +119,8 @@ export const CanvasWalletProvider = ({ children }) => {
         signTransaction,
         iframe,
         userInfo,
-        content
+        content,
+        canvasClient,
     };
 
     return (

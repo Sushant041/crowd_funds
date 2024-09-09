@@ -14,10 +14,11 @@ import {
 import { toast } from "react-toastify";
 import { Buffer } from "buffer";
 import Modal from 'react-modal'; // Make sure to install react-modal using 'npm install react-modal'
+import useCanvasWallet from "./CanvasWalletProvider";
 
 window.Buffer = Buffer;
 
-const Main1 = ({ walletAddress, signTransaction }) => {
+const Main1 = ({ walletAddress }) => {
   const [campaigns, setCampaigns] = useState();
   const [activeTab, setActiveTab] = useState("myCampaigns");
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
@@ -29,6 +30,54 @@ const Main1 = ({ walletAddress, signTransaction }) => {
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+
+  const { canvasClient } = useCanvasWallet();
+
+  const signTransaction = async (transaction) => {
+    if (!canvasClient || !walletAddress) {
+        console.error('CanvasClient or walletAddress is not available');
+        return null;
+    }
+
+    try {
+        const network = process.env.NEXT_PUBLIC_SOLANA_RPC || "https://api.devnet.solana.com/";
+        const connection = new Connection(network, 'confirmed');
+
+        // Fetch the latest blockhash
+        const { blockhash } = await connection.getLatestBlockhash({ commitment: "finalized" });
+        transaction.recentBlockhash = blockhash;
+        transaction.feePayer = new PublicKey(walletAddress);
+
+        // Serialize the transaction
+        const serializedTx = transaction.serialize({
+            requireAllSignatures: false,
+            verifySignatures: false,
+        });
+
+        const base58Tx = encode(serializedTx);
+
+        // Sign and send the transaction via canvasClient
+        const results = await canvasClient.signAndSendTransaction({
+            unsignedTx: base58Tx,
+            awaitCommitment: "confirmed",
+            chainId: SOLANA_MAINNET_CHAIN_ID,
+        });
+
+        if (results?.untrusted?.success) {
+            toast.success("transaction signed");
+            getCampaigns()
+            console.log('Transaction signed:', results);
+            return results;
+        } else {
+            toast.error('Failed to sign transaction');
+            console.error('Failed to sign transaction');
+        }
+    } catch (error) {
+        toast.error('Failed to sign transaction');
+        console.error('Error signing transaction:', error);
+    }
+    return null;
+};
 
   const customStyles = {
     content: {
@@ -151,7 +200,6 @@ const Main1 = ({ walletAddress, signTransaction }) => {
         systemProgram: SystemProgram.programId,
       })
       .rpc();
-
     if (res) {
       console.log("Donated:", donationAmount, "to:", selectedCampaign.toString());
       toast.success("Donated:", donationAmount, "to:", selectedCampaign.toString());

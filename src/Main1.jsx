@@ -31,7 +31,7 @@ const Main1 = ({ walletAddress }) => {
   const [donationAmount, setDonationAmount] = useState();
   const [withdrawAmount, setWithdrawAmount] = useState();
   const [selectedCampaign, setSelectedCampaign] = useState(null);
-  const [isCreatedCampaign, setIsCreatedCampain] = useState(false);
+  const [isCreatedCampaign, setIsCreatedCampaign] = useState(false);
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
   const SOLANA_MAINNET_CHAIN_ID = "solana:101";
@@ -116,6 +116,12 @@ const Main1 = ({ walletAddress }) => {
       getCampaigns();
     }
   }, [walletAddress]);
+
+  useEffect(() => {
+    if (campaigns && campaigns.some(campaign => campaign.admin.toString() === walletAddress)) {
+      setIsCreatedCampaign(true);
+    }
+  }, [campaigns, walletAddress]);
 
   const getCampaigns = async () => {
 
@@ -287,7 +293,6 @@ const Main1 = ({ walletAddress }) => {
       }
       {campaigns && campaigns
         .filter((campaign) => {
-          if(isOwnCampaigns && campaign.admin.toString() === walletAddress)setIsCreatedCampain(true);
           return (isOwnCampaigns
             ? campaign.admin.toString() === walletAddress
             : campaign.admin.toString() !== walletAddress)

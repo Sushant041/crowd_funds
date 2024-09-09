@@ -25,6 +25,8 @@ const Main1 = ({ walletAddress }) => {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isDonateModalOpen, setDonateModalOpen] = useState(false);
   const [isWithdrawModalOpen, setWithdrawModalOpen] = useState(false);
+  const [isConfirmModalOpen, setisConfirmModalOpen] = useState(false);
+  const [callFun, setCallFun] = useState("");
   const [newCampaign, setNewCampaign] = useState({ name: "", description: "" });
   const [donationAmount, setDonationAmount] = useState();
   const [withdrawAmount, setWithdrawAmount] = useState();
@@ -245,6 +247,17 @@ const Main1 = ({ walletAddress }) => {
       console.log(res);
     }
   };
+
+  const handleConfirm = () =>{
+    if(callFun === "campaign"){
+      createCampaign();
+    }else if(callFun === "donate"){
+      donate();
+    }else if(callFun === "withdraw"){
+      withdraw();
+    }
+    setisConfirmModalOpen(false);
+  }
 
   const renderCampaigns = (isOwnCampaigns) => (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -482,7 +495,8 @@ const Main1 = ({ walletAddress }) => {
                   marginTop: "10px",
                 }}
                 onClick={() => {
-                  createCampaign();
+                  setCallFun("campaign");
+                  setisConfirmModalOpen(true);
                 }}
               >
                 Create
@@ -540,7 +554,8 @@ const Main1 = ({ walletAddress }) => {
                   marginBottom: "10px",
                   marginTop: "10px",
                 }} onClick={() => {
-                  donate();
+                  setCallFun("donate");
+                  setisConfirmModalOpen(true);
                 }}>Donate</button>
               <button type="button"
                 style={{
@@ -589,7 +604,10 @@ const Main1 = ({ walletAddress }) => {
                   transition: "background-color 0.3s ease",
                   marginBottom: "10px",
                   marginTop: "10px",
-                }} onClick={() => { withdraw(); }}>Withdraw</button>
+                }} onClick={() => { 
+                  setCallFun("withdraw");
+                  setisConfirmModalOpen(true); }}>
+                  Withdraw</button>
               <button type="button"
                 style={{
                   padding: "12px 24px",
@@ -607,6 +625,42 @@ const Main1 = ({ walletAddress }) => {
 
             </div>
           </form>
+        </div>
+      </Modal>
+
+      <Modal style={customStyles} isOpen={isConfirmModalOpen} onRequestClose={() => setisConfirmModalOpen(false)}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+          <h2>Before making this transection make sure you have enough balance in your wallet</h2>
+          <div>
+            <button type="button"
+                style={{
+                  padding: "12px 24px",
+                  border: "none",
+                  width: "100%",
+                  borderRadius: "4px",
+                  backgroundColor: "rgb(99, 102, 241)", 
+                  color: "#fff",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
+                }} onClick={handleConfirm}>Confirm</button>
+            <button type="button"
+                style={{
+                  padding: "12px 24px",
+                  border: "none",
+                  width: "100%",
+                  borderRadius: "4px",
+                  backgroundColor: "#FF4C4C",
+                  color: "#fff",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  transition: "background-color 0.3s ease",
+                  marginBottom: "10px",
+                  marginTop: "10px",
+                }} onClick={() => setisConfirmModalOpen(false)}>Cancel</button>
+          </div>
         </div>
       </Modal>
     </div>

@@ -26,8 +26,8 @@ const Main1 = ({ walletAddress }) => {
   const [isDonateModalOpen, setDonateModalOpen] = useState(false);
   const [isWithdrawModalOpen, setWithdrawModalOpen] = useState(false);
   const [newCampaign, setNewCampaign] = useState({ name: "", description: "" });
-  const [donationAmount, setDonationAmount] = useState(0.02);
-  const [withdrawAmount, setWithdrawAmount] = useState(0.02);
+  const [donationAmount, setDonationAmount] = useState(0);
+  const [withdrawAmount, setWithdrawAmount] = useState(0);
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const programId = new PublicKey(idl.address);
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
@@ -457,7 +457,7 @@ const Main1 = ({ walletAddress }) => {
                   borderRadius: "4px",
                   padding: "8px",
                   border: "none",
-                  width: "100%",
+                  width: "91%",
                   marginLeft: "10px",
                   minHeight: "60px",
                 }}
@@ -491,7 +491,7 @@ const Main1 = ({ walletAddress }) => {
                   padding: "12px 24px",
                   border: "none",
                   borderRadius: "4px",
-                  backgroundColor: "red",
+                  backgroundColor: "#FF4C4C",
                   color: "#fff",
                   width: "100%",
                   cursor: "pointer",
@@ -520,7 +520,7 @@ const Main1 = ({ walletAddress }) => {
                 type="number"
                 value={donationAmount}
                 onChange={(e) => setDonationAmount(Number(e.target.value))}
-                min="0.02"
+                min="0"
               />
             </label>
             <div>
@@ -545,7 +545,7 @@ const Main1 = ({ walletAddress }) => {
                   padding: "12px 24px",
                   border: "none",
                   borderRadius: "4px",
-                  backgroundColor: "red",
+                  backgroundColor: "#FF4C4C",
                   color: "#fff",
                   width: "100%",
                   cursor: "pointer",
@@ -570,7 +570,7 @@ const Main1 = ({ walletAddress }) => {
                 type="number"
                 value={withdrawAmount}
                 onChange={(e) => setWithdrawAmount(Number(e.target.value))}
-                min="0.02"
+                min="0"
               />
             </label>
             <div>
@@ -593,7 +593,7 @@ const Main1 = ({ walletAddress }) => {
                   padding: "12px 24px",
                   border: "none",
                   borderRadius: "4px",
-                  backgroundColor: "red",
+                  backgroundColor: "#FF4C4C",
                   color: "#fff",
                   width: "100%",
                   cursor: "pointer",

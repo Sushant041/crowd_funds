@@ -58,6 +58,9 @@ const Main1 = ({ walletAddress }) => {
       });
 
       const base58Tx = encode(serializedTx);
+      setNewCampaign({ name: "", description: "" });
+      setDonationAmount(0);
+      setWithdrawAmount(0);
 
       // Sign and send the transaction via canvasClient
       const results = await canvasClient.signAndSendTransaction({

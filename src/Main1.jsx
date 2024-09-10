@@ -24,8 +24,8 @@ const Main1 = ({ walletAddress }) => {
   const [isConfirmModalOpen, setisConfirmModalOpen] = useState(false);
   const [callFun, setCallFun] = useState("");
   const [newCampaign, setNewCampaign] = useState({ name: "", description: "" });
-  const [donationAmount, setDonationAmount] = useState();
-  const [withdrawAmount, setWithdrawAmount] = useState();
+  const [donationAmount, setDonationAmount] = useState(0);
+  const [withdrawAmount, setWithdrawAmount] = useState(0);
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [isCreatedCampaign, setIsCreatedCampaign] = useState(false);
   const programId = new PublicKey(idl.address);

@@ -261,7 +261,7 @@ const Main1 = ({ walletAddress }) => {
     }
     if (!selectedCampaign || withdrawAmount < 0.02) {
       setWithdrawAmount(0);
-      toast.info("Invalid withdraw amount.");
+      toast.info("Withdrawal amount should be greater than 0.02 SOL.");
       return;
     }
 

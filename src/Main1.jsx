@@ -101,10 +101,10 @@ const Main1 = ({ walletAddress }) => {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      alignItems: "center", // Removing border for a cleaner look // Ensure perfect centering
+      alignItems: "center", 
     },
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.8)", // Transparent dark overlay
+      backgroundColor: "rgba(0, 0, 0, 0.8)", 
     },
   };
 

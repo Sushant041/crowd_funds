@@ -65,6 +65,7 @@ export const CanvasWalletProvider = ({ children }) => {
                 console.error('Error connecting wallet:', error);
             }
         } else {
+            toast.error('CanvasClient is not initialized, cannot connect wallet');
             console.error('CanvasClient is not initialized');
         }
     };

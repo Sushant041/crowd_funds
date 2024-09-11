@@ -101,10 +101,10 @@ const Main1 = ({ walletAddress }) => {
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
-      alignItems: "center", 
+      alignItems: "center",
     },
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.8)", 
+      backgroundColor: "rgba(0, 0, 0, 0.8)",
     },
   };
 
@@ -347,6 +347,7 @@ const Main1 = ({ walletAddress }) => {
         </div>
       )}
       {campaigns &&
+        campaigns.length > 0 ?
         campaigns
           .filter((campaign) => {
             return isOwnCampaigns
@@ -452,7 +453,18 @@ const Main1 = ({ walletAddress }) => {
                 )}
               </div>
             </div>
-          ))}
+          ))
+        :
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "800px",
+            textAlign: "center",
+            color: "#fff",
+          }}>
+          <p>No campaigns created by others.</p>
+        </div>
+      }
     </div>
   );
 
